@@ -297,7 +297,7 @@ class LuaUtils
 	
 	public static function addAnimByIndices(obj:String, name:String, prefix:String, indices:Any = null, framerate:Int = 24, loop:Bool = false)
 	{
-		var obj:Dynamic = LuaUtils.getObjectDirectly(obj, false);
+		var obj:FlxSprite = cast LuaUtils.getObjectDirectly(obj, false);
 		if(obj != null && obj.animation != null)
 		{
 			if(indices == null)
@@ -315,8 +315,9 @@ class LuaUtils
 			obj.animation.addByIndices(name, prefix, indices, '', framerate, loop);
 			if(obj.animation.curAnim == null)
 			{
-				if(obj.playAnim != null) obj.playAnim(name, true);
-				else obj.animation.play(name, true);
+				var dyn:Dynamic = cast obj;
+				if(dyn.playAnim != null) dyn.playAnim(name, true);
+				else dyn.animation.play(name, true);
 			}
 			return true;
 		}
@@ -332,6 +333,9 @@ class LuaUtils
 
 			//case "texture_noaa" | "textureatlas_noaa" | "tex_noaa":
 				//spr.frames = AtlasFrameMaker.construct(image, null, true);
+
+			case 'aseprite' | 'jsoni8':
+				spr.frames = Paths.getAsepriteAtlas(image);
 
 			case "packer" | "packeratlas" | "pac":
 				spr.frames = Paths.getPackerAtlas(image);
@@ -463,7 +467,7 @@ class LuaUtils
 			case 'sineout': return FlxEase.sineOut;
 			case 'smoothstepin': return FlxEase.smoothStepIn;
 			case 'smoothstepinout': return FlxEase.smoothStepInOut;
-			case 'smoothstepout': return FlxEase.smoothStepInOut;
+			case 'smoothstepout': return FlxEase.smoothStepOut;
 			case 'smootherstepin': return FlxEase.smootherStepIn;
 			case 'smootherstepinout': return FlxEase.smootherStepInOut;
 			case 'smootherstepout': return FlxEase.smootherStepOut;
