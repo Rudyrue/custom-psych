@@ -72,7 +72,7 @@ Psych Engine allows for plug-and-play mods, so that you don't have to download s
 
 ![](https://github.com/Rudyrue/custom-psych/assets/73214127/1d13099e-6317-4bc2-a5b6-803dcc00b6ac)
 
-## Brand new Options menu
+## Tons of new options
 Psych Engine offers several options, allowing you to fully customize your game to your needs.
 
 ![](https://github.com/Rudyrue/custom-psych/assets/73214127/a7d1b9d6-4ea4-4d8d-ae84-e7ab501de796)
