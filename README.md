@@ -34,7 +34,7 @@ To get started, either compile from source (see [BUILDING.md](https://github.com
 
     Note splashes, Latin alphabet
 
-* `SqirraRNG`
+* `sqirradotdev`
 
     Crash Handler, base code for Chart Editor's waveform
 
