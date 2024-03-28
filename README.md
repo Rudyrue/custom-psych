@@ -5,7 +5,7 @@ To get started, either compile from source (see [BUILDING.md](https://github.com
 
 Psych Engine is available for Windows, Mac, and Linux. HTML5 and mobile targets are not supported.
 
-Mac and Linux are slightly supported, as I use Windows and cannot test if it works on those targets, because I don't have a virtual machine set up for those, or another PC for them either.
+Mac and Linux are slightly supported, as I use Windows and cannot test if it works on those targets.
 
 # Credits
 
