@@ -19,6 +19,7 @@
 * hxDiscord_RPC - `haxelib git hxdiscord_rpc https://github.com/MAJIGSAW77/hxdiscord_rpc`
 * FlxAnimate - `haxelib git flxanimate https://github.com/ShadowMario/flxanimate dev`
 
+
 * NOTE: If you don't want to manually install all of these libraries, you can run `setup/libraries.bat` that installs all of them for you.
 
 # Compiling
