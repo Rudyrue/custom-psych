@@ -7,66 +7,26 @@ Mac and Linux are slightly supported, as I use Windows and cannot test if it wor
 
 # Credits
 
-## Psych Engine Team
-* `ShadowMario`
+## Main Team
+* `ShadowMario` - Creator/Main programmer 
+* `Riveren` - Main artist/animator
 
-    Original creator of Psych Engine
-
-* `Riveren`
-
-    Main artist/animator for Psych Engine
-
-## Former Engine Members
-* `BBPanzu`
-
-    Ex-programmer/contributor of Psych Engine
-
-* `Yoshubs`
-
-    Ex-programmer/contributor of Psych Engine
-
-    Psych Engine is in no way affiliated with Yoshubs or her actions, and I do not condone or support her actions in any way.
+## Former Team Members
+* `BBPanzu` - Former assistant programmer
 
 ## Contributors
-* `CrowPlexus`
-
-    Lead contributor, New input system, and other PR's
-
-* `Keoiki`
-
-    Note splashes, Latin alphabet
-
-* `sqirradotdev`
-
-    Crash Handler, base code for Chart Editor's waveform
-
-* `EliteMasterEric`
-    
-    Support for runtime shaders
-
-* `MAJigsaw77`
-
-    hxvlc Video Library
-
-* `Tahir`
-
-    Implementing and maintaining SScript and other PR's
-
-* `iFlicky`
-
-    Composed Psync and Tea Time, made dialogue sounds
-
-* `KadeDev`
-
-    Fixed issues on the Chart Editor and other PR's
-
-* `superpowers04`
-
-    LuaJIT Fork
-
-* `CheemsAndFriends`
-
-    Creator of FlxAnimate
+* `CrowPlexus` - Lead contributor, Input System V3 and other PR's 
+* `Keoiki` - Note splashes and Latin alphabet 
+* `sqirradotdev` - Crash Handler, Chart Editor waveform 
+* `EliteMasterEric` - Runtime shader support 
+* `MAJigsaw77` - hxvlc Library
+* `Tahir` - SScript Library
+* `iFlicky` - Composer of Tea Time and Psync
+* `KadeDev` - Chart Editor fixes and PR's
+* `superpowers04` - LuaJIT fork
+* `Nebula_Zorua` - Psych Lua reworks and additions
+* `haya` - Asset memory caching system
+* `CheemsAndFriends` - FlxAnimate Library
 
 # Features
 ## Softcoding for easier mod downloads
