@@ -15,7 +15,7 @@ class NoteTypesConfig
 
 	public static function loadNoteTypeData(name:String)
 	{
-		if(noteTypesData.exists(name)) return noteTypesData.get(name);
+		if (noteTypesData.exists(name)) return noteTypesData.get(name);
 
 		var str:String = Paths.getTextFromFile('custom_notetypes/$name.txt');
 		if(str == null || !str.contains(':') || !str.contains('=')) noteTypesData.set(name, null);
