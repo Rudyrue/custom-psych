@@ -24,7 +24,7 @@ Mac and Linux are slightly supported, as I use Windows and cannot test if it wor
 * `iFlicky` - Composer of Tea Time and Psync
 * `KadeDev` - Chart Editor fixes and PR's
 * `superpowers04` - LuaJIT fork
-* `Nebula_Zorua` - Psych Lua reworks and additions
+* `Nebula the Zorua` - Psych Lua reworks and additions
 * `haya` - Asset memory caching system
 * `CheemsAndFriends` - FlxAnimate Library
 
