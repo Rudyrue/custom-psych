@@ -1,6 +1,6 @@
 # Dependencies
 * [git-scm](https://git-scm.com/downloads)
-* (Windows Only) Microsoft Visual Studio - refer to [Windows Specifics](https://github.com/Rudyrue/custom-psych/blob/3856a6bffddfa8009a1767eaaf5ab91b2402a08a/BUILDING.md?plain=1#L28) for specifics
+* (Windows Only) Microsoft Visual Studio - refer to [Windows Specifics](https://github.com/Rudyrue/custom-psych/blob/main/BUILDING.md?plain=1#L28) for specifics
 * (Linux Only) VLC
 * [Haxe](https://haxe.org/download/) 4.2.5 or greater
 
