@@ -17,8 +17,7 @@
 ## Github Libraries
 * LINC_LuaJIT - `haxelib git linc_luajit https://github.com/superpowers04/linc_luajit`
 * hxDiscord_RPC - `haxelib git hxdiscord_rpc https://github.com/MAJIGSAW77/hxdiscord_rpc`
-* FlxAnimate - `haxelib git flxanimate https://github.com/ShadowMario/flxanimate dev`
-
+* FlxAnimate - `haxelib git flxanimate https://github.com/ShadowMario/flxanimate dev`<br>
 
 * NOTE: If you don't want to manually install all of these libraries, you can run `setup/libraries.bat` that installs all of them for you.
 
@@ -31,6 +30,7 @@ These 2 commands will do that for you, without having to download the installer 
 curl -# -O https://download.visualstudio.microsoft.com/download/pr/3105fcfe-e771-41d6-9a1c-fc971e7d03a7/8eb13958dc429a6e6f7e0d6704d43a55f18d02a253608351b6bf6723ffdaf24e/vs_Community.exe
 vs_Community.exe --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 -p
 ```
+<br>
 
 * NOTE: In Mac and Linux distributions, you need to run `mkdir ~/haxelib && haxelib setup ~/haxelib` to make a folder that you can put all of your Haxe stuff into.
 
