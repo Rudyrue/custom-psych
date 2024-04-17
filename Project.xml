@@ -3,8 +3,7 @@
 	<!-- Application Settings -->
 	<app title="Friday Night Funkin': Psych Engine" file='PsychEngine' packageName='com.shadowmario.psychengine' package='com.shadowmario.psychengine' main='Main' version='0.2.8' company='ShadowMario' />
 
-	<window width='1280' height='720' fps='' background='#000000' hardware='true' vsync='false' />
-	<window orientation='landscape' fullscreen='false' resizable='true'/>
+	<window width='1280' height='720' fps='' background='#000000' hardware='true' vsync='false' orientation='landscape' fullscreen='false' resizable='true'/>
 
 	<!-- Defines -->
 	<define name='MODS_ALLOWED' />

@@ -1,7 +1,7 @@
 # Dependencies
 * [git-scm](https://git-scm.com/downloads)
 * (Windows Only) Microsoft Visual Studio - refer to the [Windows Specifics](https://github.com/Rudyrue/custom-psych/blob/main/BUILDING.md#windows-specific) header
-* (Linux Only) VLC
+* (Linux Only) VLC or, alternatively, comment out the `VIDEOS_ALLOWED` line in `Project.xml`
 * [Haxe](https://haxe.org/download/) 4.2.5 or greater
 
 ## Haxelib Libraries
@@ -32,7 +32,6 @@ These 2 commands will do that for you, without having to download the installer 
 curl -# -O https://download.visualstudio.microsoft.com/download/pr/3105fcfe-e771-41d6-9a1c-fc971e7d03a7/8eb13958dc429a6e6f7e0d6704d43a55f18d02a253608351b6bf6723ffdaf24e/vs_Community.exe
 vs_Community.exe --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK.19041 -p
 ```
-<br>
 
 ## Linux Specific
 
