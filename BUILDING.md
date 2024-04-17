@@ -19,7 +19,7 @@
 * hxDiscord_RPC - `haxelib git hxdiscord_rpc https://github.com/MAJIGSAW77/hxdiscord_rpc`
 * FlxAnimate - `haxelib git flxanimate https://github.com/ShadowMario/flxanimate dev`<br>
 
-* NOTE: If you don't want to manually install all of these libraries, you can run `setup/libraries.bat` that installs all of them for you.
+NOTE: If you don't want to manually install all of these libraries, you can run `setup/libraries.bat` that installs all of them for you.
 
 # Compiling
 
@@ -32,7 +32,7 @@ vs_Community.exe --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add M
 ```
 <br>
 
-* NOTE: In Mac and Linux distributions, you need to run `mkdir ~/haxelib && haxelib setup ~/haxelib` to make a folder that you can put all of your Haxe stuff into.
+NOTE: In Mac and Linux distributions, you need to run `mkdir ~/haxelib && haxelib setup ~/haxelib` to make a folder that you can put all of your Haxe stuff into.
 
 ## Linux Specific
 
