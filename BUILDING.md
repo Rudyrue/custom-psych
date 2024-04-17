@@ -34,7 +34,7 @@ vs_Community.exe --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add M
 
 * NOTE: In Mac and Linux distributions, you need to run `mkdir ~/haxelib && haxelib setup ~/haxelib` to make a folder that you can put all of your Haxe stuff into.
 
-### Linux Specific
+## Linux Specific
 
 For getting all the packages you need, distros often have similar or near identical names
 
@@ -69,5 +69,5 @@ After everything is set up and all of the libaries are installed, the last thing
 First time compilations take a long time, usually 15-30 minutes. But it mainly depends on your hardware.
 
 ## "I had an error relating to g++ on Linux!"
-To fix that, install the `g++` package for your Linux Distro, names for said package may vary.
+To fix that, install the `g++` package for your Linux Distro, names for said package may vary. 
 e.g: Fedora is `gcc-c++`, Gentoo is `sys-devel/gcc`, and so on.
