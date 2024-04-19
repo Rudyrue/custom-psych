@@ -3,73 +3,73 @@
 	<!-- Application Settings -->
 	<app title="Friday Night Funkin': Psych Engine" file='PsychEngine' packageName='com.shadowmario.psychengine' package='com.shadowmario.psychengine' main='Main' version='0.2.8' company='ShadowMario' />
 
-	<window width='1280' height='720' fps='' background='#000000' hardware='true' vsync='false' orientation='landscape' fullscreen='false' resizable='true'/>
+	<window width='1280' height='720' fps='' background='#000000' hardware='true' vsync='false' orientation='landscape' fullscreen='false' resizable='true' />
 
 	<!-- Defines -->
 	<define name='MODS_ALLOWED' />
 	<define name='HSCRIPT_ALLOWED' />
-	<define name='LUA_ALLOWED'  />
+	<define name='LUA_ALLOWED' />
 	<define name='ACHIEVEMENTS_ALLOWED' />
 	<define name='DISCORD_ALLOWED' />
 	<define name='TRANSLATIONS_ALLOWED' />
 	
 	<define name='SHOW_LOADING_SCREEN' />
-	<define name='PSYCH_WATERMARKS'/>
+	<define name='PSYCH_WATERMARKS' />
 
-	<define name='TITLE_SCREEN_EASTER_EGG'/>
+	<define name='TITLE_SCREEN_EASTER_EGG' />
 	<define name='BASE_GAME_FILES' />
-	<define name='VIDEOS_ALLOWED' if='windows || linux' unless='32bits'/>
+	<define name='VIDEOS_ALLOWED' if='windows || linux' unless='32bits' />
 
-	<define name='CRASH_HANDLER' if='release' />
-	<define name='CHECK_FOR_UPDATES'/>
+	<define name='CRASH_HANDLER' unless='debug' />
+	<define name='CHECK_FOR_UPDATES' unless='debug'/>
 
 	<!-- Assets -->
 	<assets path='assets/fonts' />
-	<assets path='assets/shared'/>
-	<assets path='assets/videos' if='VIDEOS_ALLOWED'/>
-	<assets path='assets/songs'/>
-	<assets path='assets/week_assets' rename='assets'/>
+	<assets path='assets/shared' />
+	<assets path='assets/videos' if='VIDEOS_ALLOWED' />
+	<assets path='assets/songs' />
+	<assets path='assets/week_assets' rename='assets' />
 
 	<section if='TITLE_SCREEN_EASTER_EGG'>
-		<assets path='assets/secrets' rename='assets/shared'/>
+		<assets path='assets/secrets' rename='assets/shared' />
 	</section>
 
 	<section if='TRANSLATIONS_ALLOWED'>
-		<assets path='assets/translations' rename='assets'/>
+		<assets path='assets/translations' rename='assets' />
 	</section>
 
 	<section if='BASE_GAME_FILES'>
-		<assets path='assets/base_game' rename='assets'/>
+		<assets path='assets/base_game' rename='assets' />
 	</section>
 
 	<section if='MODS_ALLOWED'>
-		<assets path='mods' embed='false' type='template'/>
+		<assets path='mods' embed='false' type='template' />
 	</section>
 
 	<!-- Backend/Miscellaneous -->
 	<classpath name='source' />
 
-	<haxelib name='flixel' version='5.5.0'/>
-	<haxelib name='flixel-ui' version='2.5.0'/>
-	<haxelib name='flixel-addons' version='3.2.0'/>
+	<haxelib name='flixel' version='5.5.0' />
+	<haxelib name='flixel-ui' version='2.5.0' />
+	<haxelib name='flixel-addons' version='3.2.0' />
 	<haxelib name='tjson' />
 
-	<haxelib name='linc_luajit' if='LUA_ALLOWED'/>
-	<haxelib name='SScript' if='HSCRIPT_ALLOWED'/>
-	<haxelib name='hxvlc' if='VIDEOS_ALLOWED'/>
-	<haxelib name='hxdiscord_rpc' if='DISCORD_ALLOWED'/>
-	<haxelib name='flxanimate'/>
+	<haxelib name='linc_luajit' if='LUA_ALLOWED' />
+	<haxelib name='SScript' if='HSCRIPT_ALLOWED' />
+	<haxelib name='hxvlc' if='VIDEOS_ALLOWED' />
+	<haxelib name='hxdiscord_rpc' if='DISCORD_ALLOWED' />
+	<haxelib name='flxanimate' />
 
 	<!-- NOTE TO SELF: DISABLE THIS IF ISSUES ARE FOUND -->
-	<haxedef name='LINC_LUA_RELATIVE_DYNAMIC_LIB'/>
+	<haxedef name='LINC_LUA_RELATIVE_DYNAMIC_LIB' />
 
 	<haxedef name='DISCORD_DISABLE_IO_THREAD' if='hxdiscord_rpc' />
 	<haxedef name='NO_PRECOMPILED_HEADERS' if='linux' />
 
-	<haxelib name='hxcpp-debug-server' if='debug'/>
+	<haxelib name='hxcpp-debug-server' if='debug' />
 	<haxedef name='HXC_LIBVLC_LOGGING' if='VIDEOS_ALLOWED debug' />
 
-	<haxedef name='FLX_NO_TOUCH'/>
+	<haxedef name='FLX_NO_TOUCH' />
 	<haxedef name='FLX_NO_FOCUS_LOST_SCREEN' />
 	<haxedef name='HXC_DEBUG_TRACE' if='debug' />
 	<haxedef name='FLX_NO_DEBUG' unless='debug' />
@@ -85,9 +85,9 @@
 
 	<assets path='art/iconOG.png' rename='icon.png' if='linux' />
 	
-	<icon path='art/icon16.png' size='16'/>
-	<icon path='art/icon32.png' size='32'/>
-	<icon path='art/icon64.png' size='64'/>
+	<icon path='art/icon16.png' size='16' />
+	<icon path='art/icon32.png' size='32' />
+	<icon path='art/icon64.png' size='64' />
 	<icon path='art/iconOG.png' />
 
 	<set name='BUILD_DIR' value='export/debug' if='debug' />
