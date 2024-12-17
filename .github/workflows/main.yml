@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [main]
+    branches: [main, drilly-plush]
   pull_request:
-    branches: [main]
+    branches: [main, drilly-plush]
   workflow_dispatch:
 
 jobs:
