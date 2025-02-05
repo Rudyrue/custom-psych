@@ -498,8 +498,9 @@ class PlayState extends MusicState {
 
 		var oldNote:Note = null;
 
-		var randomizedLanes:Array<Int> = [];
-		for (i in 0...Strumline.keyCount) randomizedLanes.push(FlxG.random.int(0, Strumline.keyCount - 1, randomizedLanes));
+		var randomizedLanes:Array<Int> = [for (i in 0...Strumline.keyCount) i];
+		// randomizedLanes.push(FlxG.random.int(0, Strumline.keyCount - 1, randomizedLanes));
+		if (Settings.data.gameplaySettings['randomizedNotes']) FlxG.random.shuffle(randomizedLanes);
 		for (i => note in parsedNotes) {
 			// thanks shubs /s
 			if (note.lane < 0) continue;
@@ -515,7 +516,7 @@ class PlayState extends MusicState {
 			// stepmania shuffle
 			// instead of randomizing every note's lane individually
 			// because chords were buggy asf lmao
-			if (Settings.data.gameplaySettings['randomizedNotes']) note.lane = randomizedLanes[note.lane];
+			note.lane = randomizedLanes[note.lane];
 			if (!Settings.data.gameplaySettings['sustains']) note.length = 0;
 
 			var daBPM:Float = Conductor.getBPMChangeFromMS(note.time).bpm;

@@ -17,7 +17,7 @@ class FPSCounter extends Sprite {
 	public var text:TextField;
 
 	// the rate at which the counter updates in milliseconds
-	final pollingRate:Int = 1000;
+	final pollingRate:Float = 1000;
 
 	final font:String = 'assets/fonts/Nunito-Medium.ttf';
 
@@ -26,10 +26,6 @@ class FPSCounter extends Sprite {
 
 	public static var appMemoryInBytes(get, never):Float;
 	static function get_appMemoryInBytes():Float return Memory.getCurrentUsage();
-
-	var lastFrameTime:Float;
-	var curFrameTime:Float;
-	var currentFPS:Int;
 
 	public function new(x:Float, y:Float, size:Int) {
 		super();
@@ -46,17 +42,29 @@ class FPSCounter extends Sprite {
         text.defaultTextFormat = new TextFormat(font, size, 0xFFFFFFF, JUSTIFY);
 	}
 
-	// thanks rapper for giving me the frametime code
+	var _frames:Int;
+	var _current:Int = 0;
+	var _fpsTime:Float = 0.0;
+	var _pollingRateTime:Float = 0.0;
+
 	override function __enterFrame(delta:Float):Void {
-		lastFrameTime += delta;
-		curFrameTime = 0.02 * delta + (1 - 0.02) * curFrameTime;
-		currentFPS = Math.floor(1 / curFrameTime * 1000);
+		_frames++;
+		_fpsTime += delta;
 
-		lastFrameTime -= lastFrameTime > pollingRate ? pollingRate : return;
+		// forcing fps to be updated every second instead
+		// because basing it on `_pollingRate` would cause fps to be higher or lower
+		// depending on what it is
+		if (_fpsTime >= 1000) {
+  			_current = _frames;
+ 			_fpsTime = _frames = 0;
+		}
+
+		// so instead we use polling rate just to update the text itself
+		_pollingRateTime += delta;
+		if (_pollingRateTime < pollingRate) return;
+
 		updateText();
-
-		background.width = text.width + 10;
-		background.height = text.height + 10;
+		_pollingRateTime = 0.0;
 	}
 
 	public dynamic function updateText() {
@@ -64,6 +72,9 @@ class FPSCounter extends Sprite {
 		final gcMemory:String = Util.formatBytes(gcMemoryInBytes);
 
 		// y'all are nerds smh.........................................
-		text.text = '$currentFPS FPS\nRAM: APP: $appMemory / GC: $gcMemory';
+		text.text = '$_current FPS\nRAM: [APP: $appMemory / GC: $gcMemory]';
+		
+		background.width = text.width + 10;
+		background.height = text.height + 10;
 	}
 }
