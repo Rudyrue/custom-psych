@@ -32,8 +32,8 @@
 	-->
 	<haxelib name="hxcpp" version="git" />
 
-	<haxelib name="lime" version="8.1.2"/>
-	<haxelib name="openfl" version="9.3.3" />
+	<haxelib name="lime" />
+	<haxelib name="openfl" />
 	<haxelib name="flixel" version="5.5.0"/>
 	<haxelib name="flixel-addons" version="3.2.2"/>
 	<haxelib name="hxjson5" />
