@@ -53,15 +53,12 @@ class PlayState extends MusicState {
 
 		playfield.botplay = value;
 		if (hud != null) hud.botplay = value;
-
 		return value;
 	}
 
 	@:isVar var playerID(get, set):Int;
-	function get_playerID():Int {
-		if (playfield == null) return 0;
-		return playfield.playerID;
-	}
+	function get_playerID():Int 
+		return playfield?.playerID ?? 0;
 
 	function set_playerID(value:Int):Int {
 		if (hud != null) hud.playerID = value;
@@ -69,26 +66,20 @@ class PlayState extends MusicState {
 	}
 
 	@:isVar var rate(get, set):Float;
-	function get_rate():Float {
-		if (playfield == null) return 1.0;
-		return playfield.rate;
-	}
+	function get_rate():Float 
+		return playfield?.rate ?? 1.0;
 
-	function set_rate(value:Float):Float {
+	function set_rate(value:Float):Float
 		return playfield.rate = value;
-	}
 
 	var _rawScrollSpeed:Float = 1.0;
 	var scrollType:String;
 	@:isVar var scrollSpeed(get, set):Float;
-	function get_scrollSpeed():Float {
-		if (playfield == null) return 1.0;
-		return playfield.scrollSpeed;
-	}
+	function get_scrollSpeed():Float 
+		return playfield?.scrollSpeed ?? 1.0;
 
-	function set_scrollSpeed(value:Float):Float {
+	function set_scrollSpeed(value:Float):Float
 		return playfield.scrollSpeed = value;
-	}
 
 	public var combo:Int = 0;
 	public var comboBreaks:Int = 0;
@@ -124,9 +115,7 @@ class PlayState extends MusicState {
 		if (!noFail && ((playerID == 1 && value <= 0) || (playerID == 0 && value >= 100)))
 			die();
 
-		health = value = FlxMath.bound(value, 0, 100);
-		
-		hud.healthChange(value);
+		hud.healthChange(health = value = FlxMath.bound(value, 0, 100));
 		return value;
 	}
 
@@ -219,7 +208,7 @@ class PlayState extends MusicState {
 		camOther.bgColor.alpha = 0;
 
 		// start setting up the hud
-		var strumlineYPos:Float = downscroll ? FlxG.height - 150 : 50;
+		final strumlineYPos:Float = downscroll ? FlxG.height - 150 : 50;
 		leftStrumline = new Strumline(320, strumlineYPos);
 		leftStrumline.healthMult = -1;
 		rightStrumline = new Strumline(950, strumlineYPos);
@@ -289,9 +278,7 @@ class PlayState extends MusicState {
 		rightStrumline.character = function() return bf;
 
 		// fix for the camera starting off in the stratosphere
-		camFollow.setPosition(gf.getMidpoint().x, gf.getMidpoint().y);
-		camFollow.x += gf.cameraOffset.x;
-		camFollow.y += gf.cameraOffset.y;
+		camFollow.setPosition(gf.getMidpoint().x + gf.cameraOffset.x, gf.getMidpoint().y + gf.cameraOffset.y);
 
 		cameraSpeed = stage.cameraSpeed;
 		camGame.zoom = defaultCamZoom = stage.zoom;
@@ -417,7 +404,6 @@ class PlayState extends MusicState {
 			playCharacterAnim(strumline.character(), note, 'sing');
 			if (song.meta.hasVocals && Conductor.opponentVocals == null) Conductor.mainVocals.volume = 1;
 			hud.noteHit(strumline, note, null);
-
 			return;
 		} else if (botplay) {
 			playCharacterAnim(strumline.character(), note, 'sing');
@@ -428,18 +414,16 @@ class PlayState extends MusicState {
 			combo++;
 			judge.hits++;
 			hud.noteHit(strumline, note, judge);
-
 			return;
 		}
 
-		var judgement:Judgement = judgeHit(strumline, note);
-		if (Settings.data.noteSplashSkin != 'None' && judgement.splashes && note.splashes) {
+		final judgement:Judgement = judgeHit(strumline, note);
+		if (Settings.data.noteSplashSkin != 'None' && judgement.splashes && note.splashes)
 			noteSplashes.members[note.lane].hit(strumline.members[note.lane]);
-		}
 		
-		if (note.type == 'Hey!' && strumline.character().animation.exists('cheer')) {
+		if (note.type == 'Hey!' && strumline.character().animation.exists('cheer'))
 			strumline.character().playAnim('cheer');
-		} else playCharacterAnim(strumline.character(), note, 'sing');
+		else playCharacterAnim(strumline.character(), note, 'sing');
 
 		hud.noteHit(strumline, note, judgement);
 	}
@@ -451,7 +435,7 @@ class PlayState extends MusicState {
 	}
 
 	function judgeHit(strumline:Strumline, note:Note):Judgement {
-		var judgeID:Int = Judgement.getIDFromTiming(note.rawHitTime);
+		final judgeID:Int = Judgement.getIDFromTiming(note.rawHitTime);
 		var judge:Judgement = Judgement.list[judgeID];
 
 		note.judge = judge.name;
@@ -485,7 +469,6 @@ class PlayState extends MusicState {
 			if (Conductor.opponentVocals == null) Conductor.mainVocals.volume = 1;
 			else Conductor.vocals.members[playerID].volume = 1;
 		}
-
 		return judge;
 	}
 
@@ -504,10 +487,8 @@ class PlayState extends MusicState {
 		accuracy = updateAccuracy();
 
 		note.missed = true;
-		for (piece in note.pieces) {
-			if (piece == null || !piece.exists || !piece.alive) continue;
-			piece.multAlpha = 0.25;
-		}
+		for (piece in note.pieces)
+			if (piece != null && piece.exists && piece.alive) piece.multAlpha = 0.25;
 
 		if (song.meta.hasVocals) {
 			if (Conductor.opponentVocals == null) Conductor.mainVocals.volume = 0;
@@ -531,19 +512,17 @@ class PlayState extends MusicState {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	// gameplay functionality
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	function updateAccuracy():Float {
-		if (totalNotesHit <= 0) return 0.0;
-		return totalNotesPlayed / (totalNotesHit + comboBreaks);
-	}
+	function updateAccuracy():Float 
+		return (totalNotesHit <= 0 ? 0.0 : (totalNotesPlayed / (totalNotesHit + comboBreaks)));
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	// chart/song related
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	function loadSong():Void {
 		// load chart
-		try {
-			song = Song.load(songID, Difficulty.format());
-		} catch (e:haxe.Exception) {
+		try 
+			song = Song.load(songID, Difficulty.format())
+		catch (e:haxe.Exception) {
 			error('The chart "$songID (${Difficulty.current})" failed to load: $e');
 			song = Song.createDummyFile();
 			song.meta = Meta.load(songID);
@@ -588,31 +567,26 @@ class PlayState extends MusicState {
 				endSong();
 				Scores.save();
 			}
-		} catch (e:Dynamic) {
+		} catch (e:Dynamic)
 			error('Instrumental failed to load: $e');
-		}
 
 		// load vocals
 		try {
 			if (song.meta.hasVocals) {
-				var mainFile:Sound = Paths.audio('songs/$songID/Voices-Player', null, false);
-				var opponentFile:Sound = Paths.audio('songs/$songID/Voices-Opponent', null, false);
-
-				if (mainFile == null) mainFile = Paths.audio('songs/$songID/Voices');
+				final mainFile:Sound = Paths.audio('songs/$songID/Voices-Player', null, false) ?? Paths.audio('songs/$songID/Voices');
+				final opponentFile:Sound = Paths.audio('songs/$songID/Voices-Opponent', null, false);
 
 				Conductor.mainVocals = FlxG.sound.load(mainFile);
 				if (opponentFile != null) Conductor.opponentVocals = FlxG.sound.load(opponentFile);
 			}
-		} catch (e:Dynamic) {
+		} catch (e:Dynamic)
 			warn('Vocals failed to load: $e');
-		}
 
 		playfield.loadNotes(song);
 	}
 
-	function noteSpawned(note:Note):Void {
+	function noteSpawned(note:Note):Void
 		ScriptHandler.call('noteSpawned', [note]);
-	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	// events
@@ -623,8 +597,8 @@ class PlayState extends MusicState {
 
 		switch event.name {
 			case 'Change Character':
-				var type:Int = Std.parseInt(event.args[0]);
-				var character:Character = switch type {
+				final type:Int = Std.parseInt(event.args[0]);
+				final character:Character = switch type {
 					case 0: dad;
 					case 1: gf;
 					case 2: bf;
@@ -632,25 +606,23 @@ class PlayState extends MusicState {
 					default: null;
 				}
 
-				var name:String = event.args[1];
+				final name:String = event.args[1];
 				if (character != null && character.name != name) {
-					var newCharacter:Character = characterCache[name];
+					final newCharacter:Character = characterCache[name];
+					if (newCharacter != null) return;
+					newCharacter.alpha = 1;
+					newCharacter.visible = character.visible;
+					newCharacter.setPosition(character.x, character.y);
+					character.alpha = 0;
+					character.visible = false;
 
-					if (newCharacter != null) {
-						newCharacter.alpha = 1;
-						newCharacter.visible = character.visible;
-						newCharacter.setPosition(character.x, character.y);
-						character.alpha = 0;
-						character.visible = false;
-
-						if (type == 0) dad = newCharacter;
-						else if (type == 1) gf = newCharacter;
-						else if (type == 2) bf = newCharacter;
-					}
+					if (type == 0) dad = newCharacter;
+					else if (type == 1) gf = newCharacter;
+					else if (type == 2) bf = newCharacter;
 				}
 
 			case 'Hey!':
-				var character:Character = switch Std.parseInt(event.args[0]) {
+				final character:Character = switch Std.parseInt(event.args[0]) {
 					case 0: dad;
 					case 1: gf;
 					case 2: bf;
@@ -664,8 +636,8 @@ class PlayState extends MusicState {
 				}
 
 			case 'Play Animation':
-				var animName:String = event.args[1];
-				var character:Character = switch Std.parseInt(event.args[0]) {
+				final animName:String = event.args[1];
+				final character:Character = switch Std.parseInt(event.args[0]) {
 					case 0: dad;
 					case 1: gf;
 					case 2: bf;
@@ -691,10 +663,9 @@ class PlayState extends MusicState {
 				}
 
 			case 'Screen Shake':
-				var camerasToTarget:Array<FlxCamera> = [camGame, camHUD];
-				for (i => cam in camerasToTarget) {
-					var duration:Float = Std.parseFloat(event.args[0].split(',')[i]);
-					var intensity:Float = Std.parseFloat(event.args[1].split(',')[i]);
+				for (i => cam in [camGame, camHUD]) {
+					final duration:Float = Std.parseFloat(event.args[0].split(',')[i]);
+					final intensity:Float = Std.parseFloat(event.args[1].split(',')[i]);
 
 					if (duration <= 0 || intensity <= 0) continue;
 					cam.shake(intensity, duration);
@@ -702,8 +673,8 @@ class PlayState extends MusicState {
 
 			case 'Change Scroll Speed':
 				if (scrollType != 'constant') {
-					var duration:Float = Std.parseFloat(event.args[1]);
-					var value:Float = song.speed * _rawScrollSpeed * Math.max(Std.parseFloat(event.args[0]), 1);
+					final duration:Float = Std.parseFloat(event.args[1]);
+					final value:Float = song.speed * _rawScrollSpeed * Math.max(Std.parseFloat(event.args[0]), 1);
 
 					if (duration <= 0) scrollSpeed = value;
 					else FlxTween.tween(this, {scrollSpeed: value}, duration / rate);
@@ -743,54 +714,36 @@ class PlayState extends MusicState {
 	}
 
 	function moveCamera(?measure:Int = 0) {
-		measure = Std.int(Math.max(0, measure));
-		if (song.notes[measure] == null) return;
+        measure = Std.int(Math.max(0, measure));
+        if (song.notes[measure] == null) return;
 
-		if (gf != null && song.notes[measure].gfSection) {
-			ScriptHandler.call('movedCamera', ['spectator']);
-			camFollow.setPosition(gf.getMidpoint().x, gf.getMidpoint().y);
-			camFollow.x += gf.cameraOffset.x;
-			camFollow.y += gf.cameraOffset.y;
-			return;
-		}
-
-		var isOpponent:Bool = song.notes[measure].mustHitSection != true;
-		if (isOpponent) {
-			if (dad == null) return;
-			ScriptHandler.call('movedCamera', ['opponent']);
-			camFollow.setPosition(dad.getMidpoint().x, dad.getMidpoint().y);
-			camFollow.x += dad.cameraOffset.x;
-			camFollow.y += dad.cameraOffset.y;
-			return;
-		}
-		
-		if (bf == null) return;
-		ScriptHandler.call('movedCamera', ['player']);
-		camFollow.setPosition(bf.getMidpoint().x, bf.getMidpoint().y);
-		camFollow.x += bf.cameraOffset.x;
-		camFollow.y += bf.cameraOffset.y;
-	}
+		final char:Character = (song.notes[measure].gfSection ? gf : (song.notes[measure].mustHitSection != true ? dad : bf));
+		final name:String = (char == gf ? 'spectator' : (char == dad ? 'opponent' : 'player'));
+		if (char == null) return;
+		ScriptHandler.call('movedCamera', [name]);
+		camFollow.setPosition(char.getMidpoint().x, char.getMidpoint().y);
+		camFollow.x += char.cameraOffset.x;
+		camFollow.y += char.cameraOffset.y;
+    }
 
 	function characterBopper(beat:Int):Void {
-		if (beat % Math.round(gfSpeed * gf.danceInterval) == 0)
-			gf.dance();
-		if (beat % bf.danceInterval == 0)
-			bf.dance();
-		if (beat % dad.danceInterval == 0)
-			dad.dance();
+		for (char in [gf, bf, dad])
+		{
+			if (char == null) continue;
+			if (beat % (char == gf ? Math.round(gfSpeed * char.danceInterval) : char.danceInterval) == 0)
+				char.dance();
+		}
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	// any other miscellaneous functions i need
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	inline function playCharacterAnim(character:Character, note:Note, prefix:String) {
+	inline function playCharacterAnim(character:Character, note:Note, prefix:String) 
 		character.playAnim('$prefix${Note.directions[note.lane].toUpperCase()}${note.animSuffix}');
-	}
 
 	// have to make it a function instead because dce lol
-	function loadVideo(path:String):FunkinVideo {
+	function loadVideo(path:String):FunkinVideo 
 		return new FunkinVideo(Paths.video(path), true);
-	}
 
 	function openPauseMenu() {
 		persistentUpdate = false;
@@ -799,29 +752,26 @@ class PlayState extends MusicState {
 		FlxTimer.globalManager.forEach(function(tmr:FlxTimer) if (!tmr.finished) tmr.active = false);
 		FlxTween.globalManager.forEach(function(twn:FlxTween) if (!twn.finished) twn.active = false);
 
-		var menu:PauseMenu = new PauseMenu(songName, Difficulty.current, 0);
+		final menu:PauseMenu = new PauseMenu(songName, Difficulty.current, 0);
 		openSubState(menu);
 		menu.camera = camOther;
 	}
 
 	function cacheCharacter(type:Int, name:String):Character {
-		var character:Character = new Character(0, 0, name);
+		final character:Character = new Character(0, 0, name);
 		character.alpha = 0.0001;
 		characterCache.set(name, character);
 		add(character);
-
 		return character;
 	}
 
 	// you die
 	dynamic function die() {
-		persistentUpdate = false;
-		camGame.visible = false;
-		camHUD.visible = false;
+		persistentUpdate = camGame.visible = camHUD.visible = false;
 
 		countdown.stop();
 
-		var gameOverSubstate:GameOverSubstate = new GameOverSubstate(bf);
+		final gameOverSubstate:GameOverSubstate = new GameOverSubstate(bf);
 		gameOverSubstate.cameras = [camOther];
 		openSubState(gameOverSubstate);
 	}
@@ -833,9 +783,8 @@ class PlayState extends MusicState {
 		canPause = false;
 		// should automatically leave if you're not in story mode
 		var exitToMenu:Bool = !storyMode;
-		if (storyMode) {
+		if (storyMode) 
 			++currentLevel < songList.length ? MusicState.resetState() : exitToMenu = true;
-		}
 
 		if (exitToMenu || forceLeave) {
 			persistentUpdate = true;

@@ -105,7 +105,7 @@ class MainMenuState extends MusicState {
 					case 'freeplay':
 						MusicState.switchState(new FreeplayState());
 
-	/*				#if MODS_ALLOWED
+					/*#if MODS_ALLOWED
 					case 'mods':
 						MusicState.switchState(new ModsMenuState());
 					#end*/
@@ -155,14 +155,13 @@ class MainMenuState extends MusicState {
 		item.animation.addByPrefix('idle', '$option idle', 24, true);
 		item.animation.addByPrefix('selected', '$option selected', 24, true);
 		item.playAnim('idle');
-
 		return item;
 	}
 
 	function changeSelection(?dir:Int = 0, ?usingMouse:Bool = false) {
-		var lastItem:FunkinSprite = optionGrp.members[curSelected];
+		final lastItem:FunkinSprite = optionGrp.members[curSelected];
 		curSelected = usingMouse ? dir : FlxMath.wrap(curSelected + dir, 0, optionGrp.length - 1);
-		var curItem:FunkinSprite = optionGrp.members[curSelected];
+		final curItem:FunkinSprite = optionGrp.members[curSelected];
 
 		lastItem.playAnim('idle');
 		lastItem.updateHitbox();

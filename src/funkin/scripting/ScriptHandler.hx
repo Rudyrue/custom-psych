@@ -41,11 +41,9 @@ class ScriptHandler {
 				return script;*/
 
 			case "hx": 
-				var script:HScript = new HScript(dir);
-
+				final script:HScript = new HScript(dir);
 				list.push(script);
 				script.execute();
-
 				return script;
 
 			case _: return null;
@@ -56,12 +54,10 @@ class ScriptHandler {
 		args ??= [];
 		for (i in 0...list.length) {
 			final script:IScript = list[i];
-
 			if (script.disposed) {
 				if (list.contains(script)) list.remove(script);
 				continue;
 			}
-
 			script.call(func, args);
 		}
 	}
@@ -69,17 +65,14 @@ class ScriptHandler {
 	public static function set(variable:String, value:Dynamic):Void {
 		for (i in 0...list.length) {
 			final script:IScript = list[i];
-
 			if (script.disposed) {
 				if (list.contains(script)) list.remove(script);
 				continue;
 			}
-
 			script.set(variable, value);
 		}
 	}
 
-	public static function clear() {
+	public static function clear()
 		while (list.length > 0) list.pop().close();
-	}
 }

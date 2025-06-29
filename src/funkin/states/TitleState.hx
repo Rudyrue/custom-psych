@@ -24,8 +24,7 @@ class TitleState extends MusicState {
 		//var fuck:FlxSprite = null;
 		//fuck.visible = true;
 
-		MusicState.skipNextTransIn = true;
-		MusicState.skipNextTransOut = true;
+		MusicState.skipNextTransIn = MusicState.skipNextTransOut = true;
 
 		Paths.clearStoredMemory();
 		super.create();
@@ -147,11 +146,11 @@ class TitleState extends MusicState {
 			return;
 		}
 
-		var titleRaw:String = Paths.getFileContent('data/titleData.json');
+		final titleRaw:String = Paths.getFileContent('data/titleData.json');
 		if (titleRaw == null || titleRaw.length == 0) return;
 
 		try {
-			var data:TitleData = cast Json5.parse(titleRaw);
+			final data:TitleData = cast Json5.parse(titleRaw);
 			gfPosition.set(data.gfPos[0], data.gfPos[1]);
 			logoPosition.set(data.logoPos[0], data.logoPos[1]);
 			enterPosition.set(data.textPos[0], data.textPos[1]);
@@ -163,18 +162,15 @@ class TitleState extends MusicState {
 			useIdle = data.idle;
 	
 			if (data.background != null && data.background.trim().length > 0) {
-				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image(data.background));
+				final bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image(data.background));
 				bg.antialiasing = Settings.data.antialiasing;
 				add(bg);
 			}
 		} catch(e:haxe.Exception) trace('[WARN] Title JSON might be broken, ignoring issue...\n${e.details()}');
 	}
 
-	function getIntroTexts():Array<Array<String>> {
-		var firstArray:Array<String> = File.getContent(Paths.text('introText.txt')).split('\n');
-
-		return [for (i in firstArray) i.split('--')];
-	}
+	function getIntroTexts():Array<Array<String>> 
+		return [for (i in File.getContent(Paths.text('introText.txt')).split('\n')) i.split('--')];
 	
 	var newTitle:Bool = false;
 	var titleTimer:Float = 0;
@@ -231,8 +227,9 @@ class TitleState extends MusicState {
 		logo.animation.play('bump', true);
 
 		danceLeft = !danceLeft;
-		if (!useIdle) gf.animation.play(danceLeft ? 'danceRight' : 'danceLeft');
-		else if (curBeat % 2 == 0) gf.animation.play('idle', true);
+		if (!useIdle) gf.animation.play((danceLeft ? 'danceRight' : 'danceLeft'));
+		else if (curBeat % 2 == 0) gf.animation.play('idle');
+
 
 		if (seenIntro) return;
 

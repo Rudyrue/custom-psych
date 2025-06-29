@@ -55,7 +55,7 @@ class FreeplayState extends MusicState {
 
 		for (week in WeekData.list) {
 			for (song in week.songs) {
-				var diffs:Array<String> = song.difficulties;
+				var diffs:Array<String> = song?.difficulties;
 				if (song.difficulties == null || song.difficulties.length == 0) diffs = Difficulty.loadFromWeek(week);
 
 				songList.push({
@@ -80,14 +80,14 @@ class FreeplayState extends MusicState {
 			// some mods have a custom alphabet sparrow, so lets use it
 			Mods.current = song.folder;
 
-			var songName:String = song.id == 'random' ? 'Random' : Meta.load(song.id).songName;
+			final songName:String = song.id == 'random' ? 'Random' : Meta.load(song.id).songName;
 			final alphabet:Alphabet = grpSongs.add(new Alphabet(90, 320, songName));
 			alphabet.visible = alphabet.active = false;
 			alphabet.targetY = index;
 			alphabet.scaleX = Math.min(1, 980 / alphabet.width);
 			alphabet.snapToPosition();
 
-			var icon:CharIcon = new CharIcon(song.icon);
+			final icon:CharIcon = new CharIcon(song.icon);
 			icon.visible = icon.active = false;
 			grpIcons.add(icon);
 		}
@@ -148,7 +148,7 @@ class FreeplayState extends MusicState {
 		if (Controls.justPressed('accept')) {
 			actionPressed = true;
 			if (songList[curSelected].id == 'random') {
-				var oldSelected:Int = curSelected;
+				final oldSelected:Int = curSelected;
 				curSelected = FlxG.random.int(1, songList.length - 1);
 				changeSelection();
 				curDiffName = curDiffs[FlxG.random.int(0, curDiffs.length - 1)];
@@ -194,7 +194,7 @@ class FreeplayState extends MusicState {
 	override function closeSubState():Void {
 		super.closeSubState();
 
-		var play:PlayData = Scores.getPlay(songList[curSelected].id, curDiffName);
+		final play:PlayData = Scores.getPlay(songList[curSelected].id, curDiffName);
 		intendedScore = play.score;
 		intendedAccuracy = play.accuracy;
 
@@ -216,7 +216,7 @@ class FreeplayState extends MusicState {
 			holdTime = 0;	
 		}
 
-		var shiftMult:Int = FlxG.keys.pressed.SHIFT ? 3 : 1;
+		final shiftMult:Int = FlxG.keys.pressed.SHIFT ? 3 : 1;
 
 		final downJustPressed:Bool = Controls.justPressed('ui_down');
 		if (downJustPressed || Controls.justPressed('ui_up')) {
@@ -226,9 +226,9 @@ class FreeplayState extends MusicState {
 
 		final downPressed:Bool = Controls.pressed('ui_down');
 		if (downPressed || Controls.pressed('ui_up')) {
-			var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
+			final checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 			holdTime += elapsed;
-			var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
+			final checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
 
 			if (holdTime > 0.5 && checkNewHold - checkLastHold > 0)
 				changeSelection((checkNewHold - checkLastHold) * (downPressed ? shiftMult : -shiftMult));
@@ -263,7 +263,7 @@ class FreeplayState extends MusicState {
 
 		Mods.current = songList[curSelected].folder; // sigh
 
-		var newColour:Int = songList[curSelected].colour;
+		final newColour:Int = songList[curSelected].colour;
 		if (newColour != intendedColour) {
 			intendedColour = newColour;
 			FlxTween.cancelTweensOf(bg);
@@ -271,7 +271,6 @@ class FreeplayState extends MusicState {
 		}
 
 		curDiffs = songList[curSelected].difficulties;
-
 		curDifficulty = curDiffs.indexOf(curDiffName);
 		if (curDifficulty == -1) curDifficulty = 0;
 		changeDifficulty();
@@ -281,10 +280,10 @@ class FreeplayState extends MusicState {
 		curDifficulty = FlxMath.wrap(curDifficulty + change, 0, curDiffs.length - 1);
 
 		curDiffName = curDiffs[curDifficulty];
-		var displayDiff:String = curDiffName.toUpperCase();
+		final displayDiff:String = curDiffName.toUpperCase();
 		difficultyText.text = curDiffs.length == 1 ? displayDiff : '< $displayDiff >';
 
-		var play:PlayData = Scores.getPlay(songList[curSelected].id, curDiffName);
+		final play:PlayData = Scores.getPlay(songList[curSelected].id, curDiffName);
 		intendedScore = play.score;
 		intendedAccuracy = play.accuracy;
 
@@ -297,22 +296,21 @@ class FreeplayState extends MusicState {
 	public function updateTexts(elapsed:Float = 0.0) {
 		lerpSelected = FlxMath.lerp(curSelected, lerpSelected, Math.exp(-elapsed * 9.6));
 		for (i in _lastVisibles) {
-			var text:Alphabet = grpSongs.members[i];
-
+			final text:Alphabet = grpSongs.members[i];
 			text.visible = text.active = false;
 			grpIcons.members[i].visible = false;
 		}
 		_lastVisibles.resize(0);
 
-		var min:Int = Math.round(FlxMath.bound(lerpSelected - _drawDistance, 0, songList.length));
-		var max:Int = Math.round(FlxMath.bound(lerpSelected + _drawDistance, 0, songList.length));
+		final min:Int = Math.round(FlxMath.bound(lerpSelected - _drawDistance, 0, songList.length));
+		final max:Int = Math.round(FlxMath.bound(lerpSelected + _drawDistance, 0, songList.length));
 		for (i in min...max) {
-			var item:Alphabet = grpSongs.members[i];
+			final item:Alphabet = grpSongs.members[i];
 			item.visible = item.active = true;
 			item.x = ((item.targetY - lerpSelected) * item.distancePerItem.x) + item.spawnPos.x;
 			item.y = ((item.targetY - lerpSelected) * 1.3 * item.distancePerItem.y) + item.spawnPos.y;
 
-			var icon:CharIcon = grpIcons.members[i];
+			final icon:CharIcon = grpIcons.members[i];
 			icon.visible = true;
 			icon.setPosition(item.x + (item.width + (icon.width * 0.05)), item.y - (item.height * 0.5));
 			_lastVisibles.push(i);
