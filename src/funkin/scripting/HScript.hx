@@ -34,7 +34,7 @@ class HScript extends Iris {
 	override function call(func:String, ?args:Array<Dynamic>):IrisCall {
 		var defaultCall:IrisCall = {funName: func, signature: null, returnValue: null};
 
-		if (disposed || !active || !exists(func)) return defaultCall;
+		if (!active || !exists(func)) return defaultCall;
 
 		try {
 			var signature:Dynamic = interp.variables.get(func);
