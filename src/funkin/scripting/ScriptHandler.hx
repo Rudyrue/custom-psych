@@ -13,9 +13,9 @@ class ScriptHandler {
 		for (i => directory in directories) {
 			if (!FileSystem.exists(directory) || !FileSystem.exists('$directory/$dir')) continue;
 			
-			var folder:Array<String> = FileSystem.readDirectory('$directory/$dir') ?? [];
-			for (file in folder) {
+			for (file in FileSystem.readDirectory('$directory/$dir') ?? []) {
 				final absPath:String = '$directory/$dir/$file';
+
 				if (FileSystem.isDirectory(absPath) && subFolders) {
 					loadFromDir(absPath, subFolders);
 					continue;
@@ -39,25 +39,20 @@ class ScriptHandler {
 	}
 
 	public static function call(func:String, ?args:Array<Dynamic>):Void {
-		args ??= [];
-		for (i in 0...list.length) {
-			var script:HScript = list[i];
+		for (script in list) {
 			if (script == null || !script.active) continue;
-	
 			script.call(func, args);
 		}
 	}
 
 	public static function set(variable:String, value:Dynamic):Void {
-		for (i in 0...list.length) {
-			var script:HScript = list[i];
+		for (script in list) {
 			if (script == null || !script.active) continue;
-
 			script.set(variable, value);
 		}
 	}
 
 	public static function clear() {
-		while (list.length > 0) list.pop().close();
+		while (list.length > 0) list.pop().destroy();
 	}
 }

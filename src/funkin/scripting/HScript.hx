@@ -36,6 +36,7 @@ class HScript extends Iris {
 
 		if (!active || !exists(func)) return defaultCall;
 
+		args ??= [];
 		try {
 			var signature:Dynamic = interp.variables.get(func);
 			var ret = Reflect.callMethod(null, signature, args ?? []);
