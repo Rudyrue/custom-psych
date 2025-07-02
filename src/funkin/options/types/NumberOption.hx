@@ -45,7 +45,7 @@ class NumberOption extends BaseOption<Float, Float>
 	private function _change(next:Float):Void
 	{
 		var prev:Float = this.value;
-		this.value = this.scrollSpeed * next;
+		this.value = prev + (this.scrollSpeed * next);
 		if (this.value < minimum)
 			this.value = maximum;
 		if (this.value > maximum)

@@ -15,7 +15,6 @@ class HScript extends Iris {
 		this.parser.resumeErrors = true;
 		set('closeFile', close);
 
-
 		set('Settings', Settings);
 		set('FlxG', FlxG);
 		set('Controls', Controls);

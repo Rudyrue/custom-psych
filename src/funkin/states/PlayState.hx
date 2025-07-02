@@ -1,4 +1,4 @@
- package funkin.states;
+package funkin.states;
 
 import openfl.media.Sound;
 
@@ -742,8 +742,7 @@ class PlayState extends MusicState {
     }
 
 	function characterBopper(beat:Int):Void {
-		for (char in [gf, bf, dad])
-		{
+		for (char in [gf, bf, dad]) {
 			if (char == null) continue;
 			if (beat % (char == gf ? Math.round(gfSpeed * char.danceInterval) : char.danceInterval) == 0)
 				char.dance();
