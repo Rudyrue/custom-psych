@@ -29,8 +29,14 @@ class PauseMenu extends flixel.FlxSubState {
 			if (openCount > 3 || Settings.data.pauseType == 'Disabled') options.remove('Resume');
 		}
 
-		music = FlxG.sound.load(Paths.music(musicPath), 0, true);
-		music.play(FlxG.random.float(0, music.length * 0.5));
+		if (musicPath != 'None') {
+			if (musicPath == 'Song Instrumental') {
+				@:privateAccess
+				music = FlxG.sound.load(Conductor.inst._sound, 0, true);
+			} else music = FlxG.sound.load(Paths.music(musicPath), 0, true);
+			
+			music.play(FlxG.random.float(0, music.length * 0.5));
+		}
 
 		var bg:FunkinSprite = new FunkinSprite().makeGraphic(1, 1, FlxColour.BLACK);
 		bg.scale.set(FlxG.width, FlxG.height);
@@ -88,7 +94,7 @@ class PauseMenu extends flixel.FlxSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (music.volume < 0.7) music.volume += elapsed;
+		if (music != null && music.volume < 0.7) music.volume += elapsed;
 
 		final downJustPressed:Bool = Controls.justPressed('ui_down');
 		if (downJustPressed || Controls.justPressed('ui_up')) changeSelection(downJustPressed ? 1 : -1);
@@ -112,11 +118,13 @@ class PauseMenu extends flixel.FlxSubState {
 					
 				case 'Options': 
 					PauseMenu.wentToOptions = true;
-					if (Settings.data.pauseMusic != 'None') {
-						Conductor.inst = FlxG.sound.load(Paths.music(Settings.data.pauseMusic), music.volume);
+					if (music != null) {
+						@:privateAccess
+						Conductor.inst = FlxG.sound.load(music._sound, music.volume, true);
 						Conductor.inst.play();
 						FlxTween.tween(Conductor.inst, {volume: 1}, 0.8);
 						Conductor.inst.time = music.time;
+						destroyMusic();
 					}
 					MusicState.switchState(new OptionsState());
 
@@ -127,7 +135,9 @@ class PauseMenu extends flixel.FlxSubState {
 		}
 	}
 
-	inline function destroyMusic() {
+	function destroyMusic() {
+		if (music == null) return;
+
 		music.stop();
 		music.destroy();
 		music = null;

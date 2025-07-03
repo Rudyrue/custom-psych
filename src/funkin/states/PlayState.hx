@@ -173,7 +173,9 @@ class PlayState extends MusicState {
 		// precache the pause menu music
 		// to prevent the pause menu freezing on first pause
 		PauseMenu.musicPath = Settings.data.pauseMusic;
-		Paths.music(PauseMenu.musicPath);
+		if (PauseMenu.musicPath != 'Song Instrumental' && PauseMenu.musicPath != 'None') {
+			Paths.music(PauseMenu.musicPath);
+		}
 
 		// set up gameplay settings
 		noFail = Settings.data.gameplaySettings['noFail'];

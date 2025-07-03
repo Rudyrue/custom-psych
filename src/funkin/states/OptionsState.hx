@@ -318,6 +318,11 @@ class OptionsState extends MusicState {
 			),
 		]),
 		new OptionsPage("Miscellaneous", "miscellaneous", [
+			new ChoiceOption('Pause Music',
+				'What plays when paused in-game.',
+				'pauseMusic',
+				['None', 'Tea Time', 'Breakfast', 'Breakfast (Pico Mix)', 'Song Instrumental']
+			),
 			new ButtonOption("Adjust Offset",
 				"Adjust your offset.",
 				function() MusicState.switchState(new CalibrateOffsetState())
@@ -454,6 +459,8 @@ class OptionsState extends MusicState {
 				} catch (e:haxe.Exception) error('Option "${option.attachedPref}" is failing to save: $e');
 			}
 		}
+
+		Settings.save();
 
 		super.destroy();
 	}
