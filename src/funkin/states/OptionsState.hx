@@ -399,7 +399,7 @@ class OptionsState extends MusicState {
 			pageText.add(bet);
 		}
 
-		add(descriptionBG = new FunkinSprite(150, 500));
+		add(descriptionBG = new FunkinSprite(150, 550));
 		descriptionBG.makeGraphic(1050, 150, FlxColour.BLACK);
 		descriptionBG.alpha = 0.7;
 		descriptionBG.visible = false;
