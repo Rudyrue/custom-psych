@@ -1,9 +1,7 @@
-package funkin.options;
+package funkin.substates;
 
 import funkin.objects.AttachedText;
 import funkin.objects.CheckboxThingie;
-
-import funkin.options.Option.OptionType;
 
 class GameplayChangersSubstate extends FlxSubState {
 	private var curSelected:Int = 0;
@@ -96,15 +94,15 @@ class GameplayChangersSubstate extends FlxSubState {
 				optionText.snapToPosition();
 				var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, optionsArray[i].getValue() == true);
 				checkbox.sprTracker = optionText;
-				checkbox.offsetX -= 20;
-				checkbox.offsetY = -52;
+				checkbox.trackerOffset.set(-20, -52);
 				checkbox.ID = i;
 				checkboxGroup.add(checkbox);
 			} else {
 				optionText.snapToPosition();
-				var valueText:AttachedText = new AttachedText(Std.string(option.getValue()), optionText.width + 40, 0, BOLD, 0.8);
+				var valueText:AttachedText = new AttachedText(Std.string(option.getValue()), BOLD, 0.8);
 				valueText.sprTracker = optionText;
 				valueText.copyAlpha = true;
+				valueText.trackerOffset.x = optionText.width + 40;
 				valueText.ID = i;
 				grpTexts.add(valueText);
 				optionsArray[i].setChild(valueText);
@@ -114,11 +112,6 @@ class GameplayChangersSubstate extends FlxSubState {
 
 		changeSelection();
 		reloadCheckboxes();
-	}
-
-	override function close() {
-		parent.persistentUpdate = true;
-		super.close();
 	}
 
 	var nextAccept:Int = 5;
@@ -292,6 +285,17 @@ class GameplayChangersSubstate extends FlxSubState {
 			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
 		}
 	}
+}
+
+enum OptionType {
+	// Bool will use checkboxes
+	// Everything else will use a text
+	BOOL;
+	INT;
+	FLOAT;
+	PERCENT;
+	STRING;
+	KEYBIND;
 }
 
 class GameplayOption {

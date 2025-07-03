@@ -1,9 +1,8 @@
-package funkin.options.types;
+package funkin.options;
 
-import funkin.options.types.BaseOption;
+import funkin.options.BaseOption;
 
-class ChoiceOption extends BaseOption<String, Int>
-{
+class ChoiceOption extends BaseOption<String, Int> {
 	public var options:Array<String> = null;
 
 	/**
@@ -12,8 +11,7 @@ class ChoiceOption extends BaseOption<String, Int>
 	 * @param preference    Name of the preference it modifies (in backend.Settings)
 	 * @param options       Choice names in the options menu
 	**/
-	public function new(name:String, ?description:String, ?preference:String, ?options:Array<String>)
-	{
+	public function new(name:String, ?description:String, ?preference:String, ?options:Array<String>) {
 		super(name, description, preference);
 		this.options = options ?? [];
 		this.hasMovement = true;
@@ -25,13 +23,12 @@ class ChoiceOption extends BaseOption<String, Int>
         return value;
     }
 
-	private function _change(next:Int)
-	{
+	private function _change(next:Int) {
 		if (this.options == null || this.options.length == 0)
 			return;
-		var prev:String = this.value;
+
 		var next:Int = FlxMath.wrap(this.options.indexOf(this.value) + next, 0, this.options.length - 1);
 		this.value = options[next];
-		onChange(prev);
+		onChange(this.value);
 	}
 }

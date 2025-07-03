@@ -5,8 +5,7 @@ class CheckboxThingie extends FlxSprite
 	public var sprTracker:FlxSprite;
 	public var daValue(default, set):Bool;
 	public var copyAlpha:Bool = true;
-	public var offsetX:Float = 0;
-	public var offsetY:Float = 0;
+	public var trackerOffset:FlxPoint = FlxPoint.get();
 	public function new(x:Float = 0, y:Float = 0, ?checked = false) {
 		super(x, y);
 
@@ -27,7 +26,7 @@ class CheckboxThingie extends FlxSprite
 
 	override function update(elapsed:Float) {
 		if (sprTracker != null) {
-			setPosition(sprTracker.x - 130 + offsetX, sprTracker.y + 30 + offsetY);
+			setPosition(sprTracker.x - 130 + trackerOffset.x, sprTracker.y + 30 + trackerOffset.y);
 			if(copyAlpha) {
 				alpha = sprTracker.alpha;
 			}

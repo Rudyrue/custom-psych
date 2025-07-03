@@ -1,10 +1,10 @@
 package funkin.objects;
 
-class AttachedSprite extends FlxSprite
-{
+import flixel.math.FlxPoint;
+
+class AttachedSprite extends FlxSprite {
 	public var sprTracker:FlxSprite;
-	public var xAdd:Float = 0;
-	public var yAdd:Float = 0;
+	public var trackerOffset:FlxPoint = FlxPoint.get();
 	public var angleAdd:Float = 0;
 	public var alphaMult:Float = 1;
 
@@ -12,8 +12,7 @@ class AttachedSprite extends FlxSprite
 	public var copyAlpha:Bool = true;
 	public var copyVisible:Bool = false;
 
-	public function new(?file:String = null, ?anim:String = null, ?parentFolder:String = null, ?loop:Bool = false)
-	{
+	public function new(?file:String = null, ?anim:String = null, ?parentFolder:String = null, ?loop:Bool = false) {
 		super();
 		if(anim != null) {
 			frames = Paths.sparrowAtlas(file, parentFolder);
@@ -26,21 +25,20 @@ class AttachedSprite extends FlxSprite
 		scrollFactor.set();
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		if (sprTracker != null) {
-			setPosition(sprTracker.x + xAdd, sprTracker.y + yAdd);
+			setPosition(sprTracker.x + trackerOffset.x, sprTracker.y + trackerOffset.y);
 			scrollFactor.set(sprTracker.scrollFactor.x, sprTracker.scrollFactor.y);
 
-			if(copyAngle)
+			if (copyAngle)
 				angle = sprTracker.angle + angleAdd;
 
-			if(copyAlpha)
+			if (copyAlpha)
 				alpha = sprTracker.alpha * alphaMult;
 
-			if(copyVisible) 
+			if (copyVisible) 
 				visible = sprTracker.visible;
 		}
 	}

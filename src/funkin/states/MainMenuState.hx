@@ -2,7 +2,6 @@ package funkin.states;
 
 import flixel.FlxObject;
 import flixel.effects.FlxFlicker;
-import funkin.options.OptionsState;
 
 class MainMenuState extends MusicState {
 	public static var curSelected:Int = 0;
@@ -119,10 +118,7 @@ class MainMenuState extends MusicState {
 						MusicState.switchState(new CreditsState());
 
 					case 'options':
-						if (!FlxG.keys.pressed.SHIFT)
-							MusicState.switchState(new OptionsState());
-						else
-							MusicState.switchState(new funkin.options.NewOptionsMenu());
+						MusicState.switchState(new OptionsState());
 						funkin.substates.PauseMenu.wentToOptions = false;
 
 					default:

@@ -9,17 +9,17 @@ class InputFormatter {
 	public static function getKeyName(key:FlxKey):String {
 		switch (key) {
 			case BACKSPACE:
-				return "BckSpc";
+				return "Backspace";
 			case CONTROL:
-				return "Ctrl";
+				return "Control";
 			case ALT:
 				return "Alt";
 			case CAPSLOCK:
-				return "Caps";
+				return "CapsLock";
 			case PAGEUP:
-				return "PgUp";
+				return "Page Up";
 			case PAGEDOWN:
-				return "PgDown";
+				return "Page Down";
 			case ZERO:
 				return "0";
 			case ONE:
@@ -87,7 +87,7 @@ class InputFormatter {
 			case QUOTE:
 				return "'";
 			case PRINTSCREEN:
-				return "PrtScrn";
+				return "Print Screen";
 			case NONE:
 				return '---';
 			default:

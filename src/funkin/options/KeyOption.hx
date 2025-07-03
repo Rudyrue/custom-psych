@@ -1,8 +1,8 @@
-package funkin.options.types;
+package funkin.options;
 
 import flixel.input.keyboard.FlxKey;
 import funkin.backend.InputFormatter;
-import funkin.options.types.BaseOption;
+import funkin.options.BaseOption;
 
 class KeyOption extends BaseOption<Array<FlxKey>, Int> {
     public var curKey:Int = 0;

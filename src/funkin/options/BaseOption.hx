@@ -1,4 +1,4 @@
-package funkin.options.types;
+package funkin.options;
 
 /**
  * Base Class to make option types

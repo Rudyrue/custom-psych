@@ -2,7 +2,7 @@ package funkin.states;
 
 import funkin.objects.CharIcon;
 
-import funkin.options.GameplayChangersSubstate;
+import funkin.substates.GameplayChangersSubstate;
 import funkin.substates.ResetScoreSubState;
 
 import flixel.util.FlxDestroyUtil;

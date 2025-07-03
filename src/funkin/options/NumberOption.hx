@@ -1,6 +1,6 @@
-package funkin.options.types;
+package funkin.options;
 
-import funkin.options.types.BaseOption;
+import funkin.options.BaseOption;
 
 class NumberOption extends BaseOption<Float, Float>
 {
@@ -20,6 +20,11 @@ class NumberOption extends BaseOption<Float, Float>
 	public var scrollSpeed:Float = 1.0;
 
 	/**
+	 * Decimals for the number to display
+	**/
+	public var decimals:Int = 0;
+
+	/**
 	 * @param name          Option Name in the options menu
 	 * @param description   Descriptor for what the option does
 	 * @param preference    Name of the preference it modifies (in backend.Settings)
@@ -37,19 +42,14 @@ class NumberOption extends BaseOption<Float, Float>
 	}
 
     private function _getText():String {
-        return Std.string(this.value);
+        return this.valueDisplay.replace('%v', '${this.value}');
     }
 
 	// just realised this would probably allow u to make something with scripts
 	// lolll ! !! ! @IamMorwen
-	private function _change(next:Float):Void
-	{
-		var prev:Float = this.value;
-		this.value = prev + (this.scrollSpeed * next);
-		if (this.value < minimum)
-			this.value = maximum;
-		if (this.value > maximum)
-			this.value = minimum;
-		onChange(prev);
+	private function _change(next:Float):Void {
+		var newValue:Float = FlxMath.roundDecimal(this.value + (this.scrollSpeed * next), decimals);
+		this.value = FlxMath.bound(newValue, minimum, maximum);
+		onChange(this.value);
 	}
 }

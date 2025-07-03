@@ -1,7 +1,7 @@
 package funkin.states;
 
 import funkin.objects.MenuCharacter;
-import funkin.options.GameplayChangersSubstate;
+import funkin.substates.GameplayChangersSubstate;
 import flixel.graphics.FlxGraphic;
 import funkin.backend.Scores.WeekPlayData;
 
@@ -86,6 +86,7 @@ class StoryMenuState extends MusicState {
 		add(rightArrow);
 
 		reload();
+		persistentUpdate = true;
 	}
 
 	var allowInput:Bool = true;
@@ -147,6 +148,7 @@ class StoryMenuState extends MusicState {
 	// to accomodate possible modifier changes
 	override function closeSubState():Void {
 		super.closeSubState();
+		persistentUpdate = true;
 
 		var play:WeekPlayData = Scores.getWeekPlay(curWeekFile.fileName, curDiffName);
 		intendedScore = play.score;

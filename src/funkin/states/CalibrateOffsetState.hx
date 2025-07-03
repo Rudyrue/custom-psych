@@ -1,4 +1,4 @@
-package funkin.options;
+package funkin.states;
 
 import lime.ui.KeyCode;
 import lime.app.Application;
@@ -109,7 +109,7 @@ class CalibrateOffsetState extends MusicState {
 	}
 
 	function leave():Void {
-		MusicState.switchState(new funkin.options.OptionsState());
+		MusicState.switchState(new OptionsState());
 		Conductor.inst = FlxG.sound.load(Paths.music('freakyMenu'), 0.7, true);
 		Conductor.bpm = 102;
 		Conductor.inst.play();

@@ -1,7 +1,5 @@
 package funkin.substates;
 
-import funkin.options.OptionsState;
-
 class PauseMenu extends flixel.FlxSubState {
 	var options:Array<String> = ['Resume', 'Restart', 'Options', 'Exit to Menu'];
 	var optionGrp:FlxTypedSpriteGroup<Alphabet>;

@@ -1,6 +1,6 @@
-package funkin.options.types;
+package funkin.options;
 
-import funkin.options.types.BaseOption;
+import funkin.options.BaseOption;
 
 class ButtonOption extends BaseOption<Dynamic, Dynamic> {
 	/**

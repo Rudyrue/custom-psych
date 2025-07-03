@@ -1,16 +1,14 @@
-package funkin.options.types;
+package funkin.options;
 
-import funkin.options.types.BaseOption;
+import funkin.options.BaseOption;
 
-class BoolOption extends BaseOption<Bool, Bool>
-{
+class BoolOption extends BaseOption<Bool, Bool> {
 	/**
 	 * @param name          Option Name in the options menu
 	 * @param description   Descriptor for what the option does
 	 * @param preference    Name of the preference it modifies (in backend.Settings)
 	**/
-	public function new(name:String, ?description:String, ?preference:String)
-	{
+	public function new(name:String, ?description:String, ?preference:String) {
 		super(name, description, preference);
 		this.hasEnter = true;
 		this.enter = _enter;
@@ -21,10 +19,8 @@ class BoolOption extends BaseOption<Bool, Bool>
         return value ? "ON" : "OFF";
     }
 
-	private function _enter():Void
-	{
-		var prev:Bool = this.value;
-		this.value = !prev;
-		onChange(prev);
+	private function _enter():Void {
+		this.value = !this.value;
+		onChange(this.value);
 	}
 }
