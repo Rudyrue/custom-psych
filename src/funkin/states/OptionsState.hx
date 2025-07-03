@@ -318,6 +318,18 @@ class OptionsState extends MusicState {
 			),
 		]),
 		new OptionsPage("Miscellaneous", "miscellaneous", [
+			{
+				var opt = new BoolOption('Auto-Pause',
+					'Whether the game will stop updating if you unfocus the window.',
+					'autoPause'
+				);
+				opt.onChange = function(v) FlxG.autoPause = v;
+				opt;
+			},
+			new BoolOption('Discord RPC',
+				'Will show on your Discord profile what you\'re currently doing in the game.\nTurn this off if you want to prevent leaks.',
+				'discordRPC'
+			),
 			new ChoiceOption('Pause Music',
 				'What plays when paused in-game.',
 				'pauseMusic',

@@ -38,6 +38,8 @@ class PauseMenu extends flixel.FlxSubState {
 			music.play(FlxG.random.float(0, music.length * 0.5));
 		}
 
+		FlxG.autoPause = false;
+
 		var bg:FunkinSprite = new FunkinSprite().makeGraphic(1, 1, FlxColour.BLACK);
 		bg.scale.set(FlxG.width, FlxG.height);
 		bg.updateHitbox();
@@ -109,12 +111,14 @@ class PauseMenu extends flixel.FlxSubState {
 					FlxG.mouse.visible = false;
 					parent.persistentUpdate = true;
 					close();
+					FlxG.autoPause = Settings.data.autoPause;
 					
 				case 'Restart': 
 					destroyMusic();
 					FlxG.mouse.visible = false;
 					MusicState.resetState();
 					parent.persistentUpdate = true;
+					FlxG.autoPause = Settings.data.autoPause;
 					
 				case 'Options': 
 					PauseMenu.wentToOptions = true;
@@ -131,6 +135,7 @@ class PauseMenu extends flixel.FlxSubState {
 				case 'Exit to Menu': 
 					destroyMusic();
 					PlayState.self.endSong(true);
+					FlxG.autoPause = Settings.data.autoPause;
 			}
 		}
 	}
