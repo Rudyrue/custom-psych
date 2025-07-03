@@ -63,6 +63,7 @@ class SaveVariables {
 	var discordRPC:Bool = true;
 	var autoPause:Bool = true;
 	var pauseMusic:String = 'Tea Time';
+	var pauseMusicVolume:Float = 0.7;
 	var gameplaySettings:Map<String, Dynamic> = [
 		'scrollSpeed' => 1.0,
 		'scrollType' => 'Multiplied',

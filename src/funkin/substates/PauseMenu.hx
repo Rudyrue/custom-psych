@@ -34,7 +34,7 @@ class PauseMenu extends flixel.FlxSubState {
 				@:privateAccess
 				music = FlxG.sound.load(Conductor.inst._sound, 0, true);
 			} else music = FlxG.sound.load(Paths.music(musicPath), 0, true);
-			
+
 			music.play(FlxG.random.float(0, music.length * 0.5));
 		}
 
@@ -94,7 +94,7 @@ class PauseMenu extends flixel.FlxSubState {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (music != null && music.volume < 0.7) music.volume += elapsed;
+		if (music != null && music.volume < Settings.data.pauseMusicVolume) music.volume += elapsed;
 
 		final downJustPressed:Bool = Controls.justPressed('ui_down');
 		if (downJustPressed || Controls.justPressed('ui_up')) changeSelection(downJustPressed ? 1 : -1);

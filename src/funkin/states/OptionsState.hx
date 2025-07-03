@@ -323,6 +323,16 @@ class OptionsState extends MusicState {
 				'pauseMusic',
 				['None', 'Tea Time', 'Breakfast', 'Breakfast (Pico Mix)', 'Song Instrumental']
 			),
+			{
+				var opt = new PercentOption('Pause Music Volume',
+					'How loud the pause music will be.',
+					'pauseMusicVolume',
+					0, 1
+				);
+				opt.scrollSpeed = 0.05;
+				opt.decimals = 2;
+				opt;
+			},
 			new ButtonOption("Adjust Offset",
 				"Adjust your offset.",
 				function() MusicState.switchState(new CalibrateOffsetState())
