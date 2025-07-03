@@ -35,7 +35,7 @@ class PauseMenu extends flixel.FlxSubState {
 				music = FlxG.sound.load(Conductor.inst._sound, 0, true);
 			} else music = FlxG.sound.load(Paths.music(musicPath), 0, true);
 
-			music.play(FlxG.random.float(0, music.length * 0.5));
+			music.play(FlxG.random.float(0, music.length * 0.75));
 		}
 
 		FlxG.autoPause = false;
@@ -103,7 +103,7 @@ class PauseMenu extends flixel.FlxSubState {
 
 		if (FlxG.mouse.wheel != 0) changeSelection(-FlxG.mouse.wheel);
 
-		if (Controls.justPressed('accept') || (FlxG.mouse.overlaps(optionGrp.members[curSelected]) && FlxG.mouse.justPressed)) {
+		if (Controls.justPressed('accept') || FlxG.mouse.justPressed) {
 			switch (options[curSelected]) {
 				case 'Resume':
 					destroyMusic();
