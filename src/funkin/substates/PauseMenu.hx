@@ -117,11 +117,11 @@ class PauseMenu extends flixel.FlxSubState {
 					destroyMusic();
 					FlxG.mouse.visible = false;
 					MusicState.resetState();
-					parent.persistentUpdate = true;
 					FlxG.autoPause = Settings.data.autoPause;
 					
 				case 'Options': 
 					PauseMenu.wentToOptions = true;
+					parent.persistentUpdate = false;
 					if (music != null) {
 						@:privateAccess
 						Conductor.inst = FlxG.sound.load(music._sound, music.volume, true);
@@ -132,7 +132,7 @@ class PauseMenu extends flixel.FlxSubState {
 					}
 					MusicState.switchState(new OptionsState());
 
-				case 'Exit to Menu': 
+				case 'Exit to Menu':
 					destroyMusic();
 					PlayState.self.endSong(true);
 					FlxG.autoPause = Settings.data.autoPause;

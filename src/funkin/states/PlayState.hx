@@ -805,7 +805,7 @@ class PlayState extends MusicState {
 			++currentLevel < songList.length ? MusicState.resetState() : exitToMenu = true;
 
 		if (exitToMenu || forceLeave) {
-			persistentUpdate = true;
+			persistentUpdate = false;
 			Conductor.inst = FlxG.sound.load(Paths.music('freakyMenu'), 0.7, true);
 			Conductor.play();
 			Difficulty.reset();
