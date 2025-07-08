@@ -23,6 +23,7 @@ class SaveVariables {
 	var canReset:Bool = true;
 	var mechanics:Bool = true;
 	var noteOffset:Float = 0;
+	var assistClaps:Bool = false;
 	var pauseType:String = 'Unlimited';
 
 	// graphics (that affect performance)

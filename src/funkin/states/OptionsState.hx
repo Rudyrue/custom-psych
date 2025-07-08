@@ -96,6 +96,10 @@ class OptionsState extends MusicState {
 				-500,
 				500
 			),
+			new BoolOption('Assist Claps',
+				'Like from StepMania, it plays a hitsound for when you should hit a note.',
+				'assistClaps'
+			),
 			new BoolOption('Mechanics',
 				'Enables mechanics for specific songs.\n(gremlin/signs from expurgation, saws from termination, etc)',
 				'mechanics'

@@ -15,6 +15,7 @@ class PlayField extends flixel.group.FlxSpriteGroup {
 	public var modifiers:Bool = false;
 
 	public var unspawnedNotes:Array<Note> = [];
+	public var notePassedIndex:Int = 0;
 	public var noteSpawnIndex:Int = 0;
 	public var noteSpawnDelay:Float = 1500;
 
@@ -121,9 +122,17 @@ class PlayField extends flixel.group.FlxSpriteGroup {
 		super.update(delta);
 
 		spawnNotes();
+
+		var nextNote:Note = unspawnedNotes[notePassedIndex];
+		if (nextNote != null && nextNote.rawTime - Conductor.rawTime <= 0) {
+			if (!nextNote.ignore && !nextNote.isSustain && nextNote.player == playerID && Settings.data.assistClaps) {
+				FlxG.sound.play(Paths.sound('hitsound'));
+			}
+			notePassedIndex++;
+		}
 	
 		for (note in notes.members) {
-			if (note == null || !note.alive) continue;
+			if (note == null) continue;
 
 			note.update(delta);
 
@@ -333,7 +342,7 @@ class PlayField extends flixel.group.FlxSpriteGroup {
 		var closestDistance:Float = Math.POSITIVE_INFINITY;
 		var noteToHit:Note = null;
 		for (note in notes.members) {
-			if (note == null || !note.exists || !note.alive) continue;
+			if (note == null) continue;
 			if (note.player != playerID || !note.hittable || note.lane != dir || note.isSustain) continue;
 			
 			var distance:Float = Math.abs(note.rawHitTime);
