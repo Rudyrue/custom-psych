@@ -2,7 +2,7 @@ package funkin.states;
 
 import flixel.FlxState;
 
-class MusicState extends FlxState {
+class FunkinState extends FlxState {
 	var curStep:Int = 0;
 	var curBeat:Int = 0;
 	var curMeasure:Int = 0;
@@ -51,8 +51,8 @@ class MusicState extends FlxState {
 		}
 	}
 
-	public static function getState():MusicState {
-		return cast(FlxG.state, MusicState);
+	public static function getState():FunkinState {
+		return cast(FlxG.state, FunkinState);
 	}
 
 	public function stepHit(step:Int):Void {}

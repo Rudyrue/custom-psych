@@ -21,7 +21,7 @@ class OptionsPage {
 		return this.name;
 }
 
-class OptionsState extends MusicState {
+class OptionsState extends FunkinState {
 	public var options:Array<OptionsPage> = [
 		new OptionsPage("Controls", "keybinds", [
 			new KeyOption("Left (Gameplay)",
@@ -351,7 +351,7 @@ class OptionsState extends MusicState {
 			},
 			new ButtonOption("Adjust Offset",
 				"Adjust your offset.",
-				function() MusicState.switchState(new CalibrateOffsetState())
+				function() FunkinState.switchState(new CalibrateOffsetState())
 			)
 		]),
 	];
@@ -468,9 +468,9 @@ class OptionsState extends MusicState {
 			if (pagesDeep != -1) closePage();
 			else {
 				if (funkin.substates.PauseMenu.wentToOptions)
-					MusicState.switchState(new PlayState());
+					FunkinState.switchState(new PlayState());
 				else
-					MusicState.switchState(new MainMenuState());
+					FunkinState.switchState(new MainMenuState());
 			}
 		}
 	}

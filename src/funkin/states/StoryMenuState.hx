@@ -5,7 +5,7 @@ import funkin.substates.GameplayChangersSubstate;
 import flixel.graphics.FlxGraphic;
 import funkin.backend.Scores.WeekPlayData;
 
-class StoryMenuState extends MusicState {
+class StoryMenuState extends FunkinState {
 	var bgSprite:FlxSprite;
 	var tracksSprite:FlxSprite;
 	var tracklist:FlxText;
@@ -108,7 +108,7 @@ class StoryMenuState extends MusicState {
 
 		if (!allowInput) return;
 
-		if (Controls.justPressed('back')) MusicState.switchState(new MainMenuState());
+		if (Controls.justPressed('back')) FunkinState.switchState(new MainMenuState());
 
 		var justPressedUp:Bool = Controls.justPressed('ui_up');
 		if (justPressedUp || Controls.justPressed('ui_down')) changeSelection(justPressedUp ? -1 : 1);
@@ -132,7 +132,7 @@ class StoryMenuState extends MusicState {
 			Difficulty.list = curWeekFile.difficulties;
 			Difficulty.current = curDiffName;
 
-			new FlxTimer().start(1, function(_) MusicState.switchState(new PlayState()));
+			new FlxTimer().start(1, function(_) FunkinState.switchState(new PlayState()));
 		}
 
 		if (FlxG.keys.justPressed.CONTROL) {

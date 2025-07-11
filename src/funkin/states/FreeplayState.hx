@@ -7,7 +7,7 @@ import funkin.substates.ResetScoreSubState;
 
 import flixel.util.FlxDestroyUtil;
 
-class FreeplayState extends MusicState {
+class FreeplayState extends FunkinState {
 	var songList:Array<SongMeta> = [];
 
 	static var curSelected:Int = 0;
@@ -166,7 +166,7 @@ class FreeplayState extends MusicState {
 		}
 
 		if (Controls.justPressed('back')) {
-			MusicState.switchState(new MainMenuState());
+			FunkinState.switchState(new MainMenuState());
 			actionPressed = true;
 		}
 	}
@@ -180,7 +180,7 @@ class FreeplayState extends MusicState {
 			Difficulty.list = curDiffs;
 			Difficulty.current = curDiffName;
 			Mods.current = songList[curSelected].folder;
-			MusicState.switchState(new PlayState());
+			FunkinState.switchState(new PlayState());
 		} else {
 			persistentUpdate = false;
 			warn('Song/Difficulty doesn\'t exist: "$path"');

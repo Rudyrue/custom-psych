@@ -5,7 +5,7 @@ import flixel.util.FlxSort;
 import objects.Bar;
 
 #if AWARDS_ALLOWED
-class AchievementsMenuState extends MusicState {
+class AchievementsMenuState extends FunkinState {
 	public var curSelected:Int = 0;
 
 	public var options:Array<Dynamic> = [];
@@ -189,7 +189,7 @@ class AchievementsMenuState extends MusicState {
 
 		if (Controls.justPressed('back')) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicState.switchState(new MainMenuState());
+			FunkinState.switchState(new MainMenuState());
 			goingBack = true;
 		}
 		super.update(elapsed);

@@ -7,7 +7,7 @@ import funkin.objects.PlayField;
 import funkin.objects.Strumline;
 import funkin.objects.Note;
 
-class CalibrateOffsetState extends MusicState {
+class CalibrateOffsetState extends FunkinState {
 	var playfield:PlayField;
 	var strumline:Strumline;
 
@@ -109,7 +109,7 @@ class CalibrateOffsetState extends MusicState {
 	}
 
 	function leave():Void {
-		MusicState.switchState(new OptionsState());
+		FunkinState.switchState(new OptionsState());
 		Conductor.inst = FlxG.sound.load(Paths.music('freakyMenu'), 0.7, true);
 		Conductor.bpm = 102;
 		Conductor.inst.play();

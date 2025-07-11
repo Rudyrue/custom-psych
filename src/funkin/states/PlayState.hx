@@ -18,7 +18,7 @@ import flixel.util.FlxStringUtil;
 import funkin.substates.PauseMenu;
 import funkin.substates.GameOverSubstate;
 
-class PlayState extends MusicState {
+class PlayState extends FunkinState {
 	public static var self:PlayState;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -802,7 +802,7 @@ class PlayState extends MusicState {
 		// should automatically leave if you're not in story mode
 		var exitToMenu:Bool = !storyMode;
 		if (storyMode) 
-			++currentLevel < songList.length ? MusicState.resetState() : exitToMenu = true;
+			++currentLevel < songList.length ? FunkinState.resetState() : exitToMenu = true;
 
 		if (exitToMenu || forceLeave) {
 			persistentUpdate = false;
@@ -810,7 +810,7 @@ class PlayState extends MusicState {
 			Conductor.play();
 			Difficulty.reset();
 			Mods.current = '';
-			MusicState.switchState(storyMode ? new StoryMenuState() : new FreeplayState());
+			FunkinState.switchState(storyMode ? new StoryMenuState() : new FreeplayState());
 			songList.resize(0);
 			storyMode = false;
 			currentLevel = 0;

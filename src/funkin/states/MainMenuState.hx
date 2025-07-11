@@ -3,7 +3,7 @@ package funkin.states;
 import flixel.FlxObject;
 import flixel.effects.FlxFlicker;
 
-class MainMenuState extends MusicState {
+class MainMenuState extends FunkinState {
 	public static var curSelected:Int = 0;
 	public static var mouseControls:Bool = true;
 
@@ -99,26 +99,26 @@ class MainMenuState extends MusicState {
 			FlxFlicker.flicker(optionGrp.members[curSelected], 1, 0.06, false, false, function(_) {
 				switch (options[curSelected]) {
 					case 'story_mode':
-						MusicState.switchState(new StoryMenuState());
+						FunkinState.switchState(new StoryMenuState());
 						
 					case 'freeplay':
-						MusicState.switchState(new FreeplayState());
+						FunkinState.switchState(new FreeplayState());
 
 					/*#if MODS_ALLOWED
 					case 'mods':
-						MusicState.switchState(new ModsMenuState());
+						FunkinState.switchState(new ModsMenuState());
 					#end*/
 
 					#if AWARDS_ALLOWED
 					case 'awards':
-						MusicState.switchState(new AchievementsMenuState());
+						FunkinState.switchState(new AchievementsMenuState());
 					#end
 
 					case 'credits':
-						MusicState.switchState(new CreditsState());
+						FunkinState.switchState(new CreditsState());
 
 					case 'options':
-						MusicState.switchState(new OptionsState());
+						FunkinState.switchState(new OptionsState());
 						funkin.substates.PauseMenu.wentToOptions = false;
 
 					default:
@@ -135,11 +135,11 @@ class MainMenuState extends MusicState {
 		}
 
 		if (Controls.justPressed('back')) {
-			MusicState.switchState(new TitleState());
+			FunkinState.switchState(new TitleState());
 			actionPressed = true;
 		}
 
-		if (FlxG.keys.justPressed.SEVEN) MusicState.switchState(new funkin.states.editors.CharacterEditorState());
+		if (FlxG.keys.justPressed.SEVEN) FunkinState.switchState(new funkin.states.editors.CharacterEditorState());
 
 		super.update(elapsed);
 	}

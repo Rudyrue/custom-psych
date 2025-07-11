@@ -116,7 +116,7 @@ class PauseMenu extends flixel.FlxSubState {
 				case 'Restart': 
 					destroyMusic();
 					FlxG.mouse.visible = false;
-					MusicState.resetState();
+					FunkinState.resetState();
 					FlxG.autoPause = Settings.data.autoPause;
 					
 				case 'Options': 
@@ -130,7 +130,7 @@ class PauseMenu extends flixel.FlxSubState {
 						Conductor.inst.time = music.time;
 						destroyMusic();
 					}
-					MusicState.switchState(new OptionsState());
+					FunkinState.switchState(new OptionsState());
 
 				case 'Exit to Menu':
 					destroyMusic();

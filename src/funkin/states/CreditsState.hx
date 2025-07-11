@@ -3,7 +3,7 @@ package funkin.states;
 import funkin.objects.AttachedSprite;
 import funkin.objects.CreditsSchema;
 
-class CreditsState extends MusicState
+class CreditsState extends FunkinState
 {
 	final defaultCredits:Array<CreditsPageSchema> = [
 		/**
@@ -144,7 +144,7 @@ class CreditsState extends MusicState
 		}
 		moveControls();
 		if (Controls.justPressed('accept') && currentUser.url != null) Util.openURL(currentUser.url);
-		if (Controls.justPressed('back')) MusicState.switchState(new MainMenuState());
+		if (Controls.justPressed('back')) FunkinState.switchState(new MainMenuState());
 	}
 
 	function createHeaderOptions():Void {

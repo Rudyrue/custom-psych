@@ -1,6 +1,6 @@
 package funkin.states;
 
-class ErrorState extends MusicState {
+class ErrorState extends FunkinState {
 	public dynamic function acceptCallback():Void {}
 	public dynamic function backCallback():Void {}
 	public var errorMsg:String;

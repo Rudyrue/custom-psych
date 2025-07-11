@@ -79,11 +79,11 @@ class GameOverSubstate extends FlxSubState {
 			Conductor.play();
 
 			if (PlayState.storyMode) {
-				MusicState.switchState(new StoryMenuState());
+				FunkinState.switchState(new StoryMenuState());
 				PlayState.songList = [];
 				PlayState.storyMode = false;
 				PlayState.currentLevel = 0;
-			} else MusicState.switchState(new FreeplayState());
+			} else FunkinState.switchState(new FreeplayState());
 		}
 	}
 
@@ -97,7 +97,7 @@ class GameOverSubstate extends FlxSubState {
 		_character.playAnim('confirm');
 
 		new FlxTimer().start(0.7, function(_) {
-			camera.fade(FlxColor.BLACK, 2, false, function() MusicState.resetState());
+			camera.fade(FlxColor.BLACK, 2, false, function() FunkinState.resetState());
 		});
 	}
 

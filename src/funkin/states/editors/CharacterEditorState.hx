@@ -10,7 +10,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import openfl.events.IOErrorEvent;
 
-class CharacterEditorState extends MusicState implements PsychUIEventHandler.PsychUIEvent {
+class CharacterEditorState extends FunkinState implements PsychUIEventHandler.PsychUIEvent {
 	var _characterFile:CharacterFile = Character.createDummyFile();
 	var name:String = 'bf';
 	var character:Character;
@@ -82,7 +82,7 @@ class CharacterEditorState extends MusicState implements PsychUIEventHandler.Psy
 		Controls.toggleVolumeKeys(true);
 
         if (Controls.justPressed('back')) {
-            MusicState.switchState(new MainMenuState());
+            FunkinState.switchState(new MainMenuState());
         }
 
 		var shiftMult:Float = 1;

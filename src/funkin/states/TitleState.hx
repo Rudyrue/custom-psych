@@ -16,7 +16,7 @@ typedef TitleData = {
 	var ?background:String;
 }
 
-class TitleState extends MusicState {
+class TitleState extends FunkinState {
 	override public function create():Void {
 		// forces a null object ref
 		// for testing crashing
@@ -24,7 +24,7 @@ class TitleState extends MusicState {
 		//var fuck:FlxSprite = null;
 		//fuck.visible = true;
 
-		MusicState.skipNextTransIn = MusicState.skipNextTransOut = true;
+		FunkinState.skipNextTransIn = FunkinState.skipNextTransOut = true;
 
 		Paths.clearStoredMemory();
 		super.create();
@@ -202,7 +202,7 @@ class TitleState extends MusicState {
 					transitionTmr = null;
 				}
 
-				MusicState.switchState(new MainMenuState());
+				FunkinState.switchState(new MainMenuState());
 			} else {
 				titleText.color = FlxColor.WHITE;
 				titleText.alpha = 1;
@@ -212,7 +212,7 @@ class TitleState extends MusicState {
 				FlxG.sound.play(Paths.sound('confirm'), 0.7);
 				skipped = true;
 				transitionTmr = new FlxTimer().start(1.5, function(_) {
-					MusicState.switchState(new MainMenuState());
+					FunkinState.switchState(new MainMenuState());
 				});
 			}
 		}
