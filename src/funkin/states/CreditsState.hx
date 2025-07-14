@@ -30,6 +30,8 @@ class CreditsState extends FunkinState {
 	];
 
 	var curSelected:Int = 0;
+	var curPerson(get, never):Person;
+	function get_curPerson():Person return people[curSelected];
 
 	override function create():Void {
 		super.create();
@@ -64,7 +66,7 @@ class CreditsState extends FunkinState {
 
 		lerpSelected = FlxMath.lerp(curSelected, lerpSelected, Math.exp(-delta * 9.6));
 		for (i => category in categories) {
-			category.y = ((i * lerpSelected) + category.height) / category.length;
+			category.y = FlxMath.lerp(category.y, (i -  curSelected) * category.height, Math.exp(-delta * 9.6));
 		}
 	}
 
@@ -97,6 +99,8 @@ class CreditGroup extends FlxSpriteGroup {
 			person.screenCenter(X);
 			person.y = yPos;
 			yPos += person.height;
+
+			person.parent = this;
 		}
 	}
 }
@@ -104,6 +108,7 @@ class CreditGroup extends FlxSpriteGroup {
 class Person extends FlxSpriteGroup {
 	public var child:Alphabet;
 	public var icon:AttachedSprite;
+	public var parent:CreditGroup;
 
 	var name:String;
 	var description:String;

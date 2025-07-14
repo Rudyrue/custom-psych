@@ -2,6 +2,7 @@ package funkin.backend;
 
 import funkin.objects.Note;
 import funkin.backend.Meta;
+import funkin.objects.Strumline;
 
 import moonchart.formats.OsuMania;
 import moonchart.formats.StepMania;
@@ -103,7 +104,7 @@ class Song {
 			for (note in section.sectionNotes) {
 				notes.push({
 					time: Math.max(0, note[0]),
-					lane: Std.int(note[1] % 4),
+					lane: Std.int(note[1] % Strumline.keyCount),
 					length: note[2],
 					type: (note[3] is String ? note[3] : Note.defaultTypes[note[3]]) ?? '',
 					altAnim: section.altAnim,
