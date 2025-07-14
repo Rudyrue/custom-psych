@@ -63,12 +63,8 @@ class CreditsState extends FunkinState {
 		var lerpVal:Float = Math.exp(-delta * 9.6);
 
 		lerpSelected = FlxMath.lerp(curSelected, lerpSelected, Math.exp(-delta * 9.6));
-		for (category in categories) {
-			var targetY:Float = category.child.targetY;
-			var yPerItem:Float = category.child.distancePerItem.y;
-			var origYPos:Float = category.child.spawnPos.y;
-
-			category.y = ((targetY - lerpSelected) * 1.3 * yPerItem) + origYPos;
+		for (i => category in categories) {
+			category.y = ((i * lerpSelected) + category.height) / category.length;
 		}
 	}
 
