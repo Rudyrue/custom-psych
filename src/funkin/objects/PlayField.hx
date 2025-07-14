@@ -235,7 +235,7 @@ class PlayField extends flixel.group.FlxSpriteGroup {
 		var oldNote:Note = null;
 
 		var lanes:Array<Int> = [for (i in 0...Strumline.keyCount) i];
-		if (Settings.data.gameplaySettings['mirroredNotes'] && modifiers) {
+		if (Settings.data.gameplayModifiers['mirroredNotes'] && modifiers) {
 			// dumb way of doing `for (i in 4...0) {}` but whatever
 			var i:Int = Strumline.keyCount;
 			lanes = [
@@ -246,12 +246,12 @@ class PlayField extends flixel.group.FlxSpriteGroup {
 			];
 		}
 
-		if (Settings.data.gameplaySettings['randomizedNotes'] && modifiers) FlxG.random.shuffle(lanes);
+		if (Settings.data.gameplayModifiers['randomizedNotes'] && modifiers) FlxG.random.shuffle(lanes);
 		for (i => note in parsedNotes) {
 			// thanks shubs /s
 			if (note.lane < 0) continue;
 			
-			if (modifiers && !Settings.data.gameplaySettings['mines'] && note.type == 'Hurt Note') {
+			if (modifiers && !Settings.data.gameplayModifiers['mines'] && note.type == 'Hurt Note') {
 				continue;
 			}
 
@@ -262,7 +262,7 @@ class PlayField extends flixel.group.FlxSpriteGroup {
 			// instead of randomizing every note's lane individually
 			// because chords were buggy asf lmao
 			note.lane = lanes[note.lane];
-			if (!Settings.data.gameplaySettings['sustains'] && modifiers) note.length = 0;
+			if (!Settings.data.gameplayModifiers['sustains'] && modifiers) note.length = 0;
 
 			var daBPM:Float = Conductor.getPointFromTime(note.time).bpm;
 

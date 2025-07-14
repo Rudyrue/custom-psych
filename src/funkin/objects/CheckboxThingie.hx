@@ -1,9 +1,8 @@
 package funkin.objects;
 
-class CheckboxThingie extends FlxSprite
-{
+class CheckboxThingie extends FlxSprite {
 	public var sprTracker:FlxSprite;
-	public var daValue(default, set):Bool;
+	public var value(default, set):Bool;
 	public var copyAlpha:Bool = true;
 	public var trackerOffset:FlxPoint = FlxPoint.get();
 	public function new(x:Float = 0, y:Float = 0, ?checked = false) {
@@ -21,36 +20,32 @@ class CheckboxThingie extends FlxSprite
 
 		animationFinished(checked ? 'checking' : 'unchecking');
 		animation.finishCallback = animationFinished;
-		daValue = checked;
+		value = checked;
 	}
 
 	override function update(elapsed:Float) {
 		if (sprTracker != null) {
-			setPosition(sprTracker.x - 130 + trackerOffset.x, sprTracker.y + 30 + trackerOffset.y);
-			if(copyAlpha) {
-				alpha = sprTracker.alpha;
-			}
+			setPosition(sprTracker.x + trackerOffset.x, sprTracker.y - trackerOffset.y);
+			if (copyAlpha) alpha = sprTracker.alpha;
 		}
 		super.update(elapsed);
 	}
 
-	private function set_daValue(check:Bool):Bool {
-		if(check) {
-			if(animation.curAnim.name != 'checked' && animation.curAnim.name != 'checking') {
+	private function set_value(check:Bool):Bool {
+		if (check) {
+			if (animation.curAnim.name != 'checked' && animation.curAnim.name != 'checking') {
 				animation.play('checking', true);
 				offset.set(34, 25);
 			}
-		} else if(animation.curAnim.name != 'unchecked' && animation.curAnim.name != 'unchecking') {
+		} else if (animation.curAnim.name != 'unchecked' && animation.curAnim.name != 'unchecking') {
 			animation.play("unchecking", true);
 			offset.set(25, 28);
 		}
-		return check;
+		return value = check;
 	}
 
-	private function animationFinished(name:String)
-	{
-		switch(name)
-		{
+	private function animationFinished(name:String) {
+		switch name {
 			case 'checking':
 				animation.play('checked', true);
 				offset.set(3, 12);

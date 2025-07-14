@@ -40,6 +40,9 @@ class SaveVariables {
 	var comboPosition:Array<Float> = [300, 300];
 	var judgePosition:Array<Float> = [300, 200];
 
+	var scrollSpeed:Float = 1.0;
+	var scrollType:String = 'Multiplied';
+
 	var flashingLights:Bool = true;
 	var noteSkin:String = 'Funkin';
 	var noteSplashSkin:String = 'Psych';
@@ -65,10 +68,7 @@ class SaveVariables {
 	var autoPause:Bool = true;
 	var pauseMusic:String = 'Tea Time';
 	var pauseMusicVolume:Float = 0.7;
-	var gameplaySettings:Map<String, Dynamic> = [
-		'scrollSpeed' => 1.0,
-		'scrollType' => 'Multiplied',
-
+	var gameplayModifiers:Map<String, Dynamic> = [
 		'playbackRate' => 1.0,
 		'instakill' => false,
 		'onlySicks' => false,
@@ -102,7 +102,7 @@ class Settings {
 
 		final fields:Array<String> = Type.getInstanceFields(SaveVariables);
 		for (i in Reflect.fields(FlxG.save.data)) {
-			if (i == 'gameplaySettings' || !fields.contains(i)) continue;
+			if (i == 'gameplayModifiers' || !fields.contains(i)) continue;
 
 			if (Reflect.hasField(data, 'set_$i')) Reflect.setProperty(data, i, Reflect.field(FlxG.save.data, i));
 			else Reflect.setField(data, i, Reflect.field(FlxG.save.data, i));
@@ -113,9 +113,9 @@ class Settings {
 			data.framerate = Std.int(FlxMath.bound(refreshRate * 2, 60, 240));
 		}
 
-		if (FlxG.save.data.gameplaySettings != null) {
-			final map:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
-			for (name => value in map) data.gameplaySettings.set(name, value);
+		if (FlxG.save.data.gameplayModifiers != null) {
+			final map:Map<String, Dynamic> = FlxG.save.data.gameplayModifiers;
+			for (name => value in map) data.gameplayModifiers.set(name, value);
 		}
 		funkin.objects.Strumline.size = data.strumlineSize;
 

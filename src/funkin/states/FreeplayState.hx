@@ -2,9 +2,7 @@ package funkin.states;
 
 import funkin.objects.CharIcon;
 
-import funkin.substates.GameplayChangersSubstate;
-import funkin.substates.ResetScoreSubState;
-
+import funkin.substates.GameplayModifiersMenu;
 import flixel.util.FlxDestroyUtil;
 
 class FreeplayState extends FunkinState {
@@ -162,7 +160,7 @@ class FreeplayState extends FunkinState {
 
 		if (FlxG.keys.justPressed.CONTROL) {
 			persistentUpdate = false;
-			openSubState(new GameplayChangersSubstate());
+			openSubState(new GameplayModifiersMenu());
 		}
 
 		if (Controls.justPressed('back')) {
@@ -199,7 +197,7 @@ class FreeplayState extends FunkinState {
 		intendedAccuracy = play.accuracy;
 
 		info('current modifiers just in case you forget somehow:');
-		for (key => value in Settings.data.gameplaySettings) Sys.println('$key: $value');
+		for (key => value in Settings.data.gameplayModifiers) Sys.println('$key: $value');
 		Sys.println('');
 	}
 

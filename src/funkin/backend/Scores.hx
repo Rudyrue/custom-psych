@@ -56,7 +56,7 @@ class Scores {
 				difficulty: difficulty,
 				score: 0,
 
-				modifiers: Settings.default_data.gameplaySettings.copy()
+				modifiers: Settings.default_data.gameplayModifiers.copy()
 			}
 		}
 
@@ -80,7 +80,7 @@ class Scores {
 	}
 
 	public static function filterWeekPlays(plays:Array<WeekPlayData>, weekID:String, difficulty:String):Array<WeekPlayData> {
-		var modifiers:Map<String, Dynamic> = Settings.data.gameplaySettings;
+		var modifiers:Map<String, Dynamic> = Settings.data.gameplayModifiers;
 
 		return plays.filter(function(play:WeekPlayData) {
 			for (m in changeableModifiers) {
@@ -107,7 +107,7 @@ class Scores {
 				score: 0,
 				accuracy: 0.0,
 
-				modifiers: Settings.default_data.gameplaySettings.copy()
+				modifiers: Settings.default_data.gameplayModifiers.copy()
 			}
 		}
 
@@ -138,7 +138,7 @@ class Scores {
 	}
 
 	public static function filterPlays(plays:Array<PlayData>, songID:String, difficulty:String):Array<PlayData> {
-		var modifiers:Map<String, Dynamic> = Settings.data.gameplaySettings;
+		var modifiers:Map<String, Dynamic> = Settings.data.gameplayModifiers;
 
 		return plays.filter(function(play:PlayData) {
 			for (m in changeableModifiers) {

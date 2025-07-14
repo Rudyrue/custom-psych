@@ -32,8 +32,8 @@ class CalibrateOffsetState extends FunkinState {
 	override function create():Void {
 		super.create();
 
-		scrollType = Settings.data.gameplaySettings['scrollType'];
-		default_scrollSpeed = Settings.data.gameplaySettings['scrollSpeed'];
+		scrollType = Settings.data.scrollType;
+		default_scrollSpeed = Settings.data.scrollSpeed;
 		
 		strumline = new Strumline(0, 0, true);
 		strumline.screenCenter(X);

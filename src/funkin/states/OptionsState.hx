@@ -188,6 +188,21 @@ class OptionsState extends FunkinState {
 				"scrollDirection",
 				["Up", "Down"]
 			),
+			{
+				var opt = new NumberOption('Scroll Speed',
+					'How fast should the notes go?',
+					'scrollSpeed',
+					0.5, 5
+				);
+				opt.scrollSpeed = 0.05;
+				opt.decimals = 2;
+				opt;
+			},
+			new ChoiceOption("Scroll Type",
+				"What type of scroll speed should you have?",
+				"scrollType",
+				["Constant", "Multiplied"]
+			),
 			new BoolOption("Flashing Lights",
 				"Self explanatory. Can prevent seizures.",
 				"flashingLights"

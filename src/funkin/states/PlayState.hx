@@ -178,11 +178,11 @@ class PlayState extends FunkinState {
 		}
 
 		// set up gameplay settings
-		noFail = Settings.data.gameplaySettings['noFail'];
+		noFail = Settings.data.gameplayModifiers['noFail'];
 		canReset = Settings.data.canReset;
 		downscroll = Settings.data.downscroll;
-		scrollType = Settings.data.gameplaySettings['scrollType'];
-		_rawScrollSpeed = Settings.data.gameplaySettings['scrollSpeed'];
+		scrollType = Settings.data.scrollType;
+		_rawScrollSpeed = Settings.data.scrollSpeed;
 
 		ScriptHandler.loadFromDir('scripts');
 
@@ -220,11 +220,11 @@ class PlayState extends FunkinState {
 		leftStrumline.healthMult = -1;
 		rightStrumline = new Strumline(950, strumlineYPos);
 
-		add(playfield = new PlayField([leftStrumline, rightStrumline], Settings.data.gameplaySettings['opponentMode'] ? 0 : 1));
+		add(playfield = new PlayField([leftStrumline, rightStrumline], Settings.data.gameplayModifiers['opponentMode'] ? 0 : 1));
 		playfield.cameras = [camHUD];
 		playfield.downscroll = downscroll;
 		playfield.modifiers = true;
-		rate = Settings.data.gameplaySettings['playbackRate'];
+		rate = Settings.data.gameplayModifiers['playbackRate'];
 
 		playfield.noteHit = noteHit;
 		playfield.sustainHit = sustainHit;
@@ -302,7 +302,7 @@ class PlayState extends FunkinState {
 		hud.downscroll = downscroll;
 		hud.playerID = playerID;
 		
-		botplay = Settings.data.gameplaySettings['botplay'];
+		botplay = Settings.data.gameplayModifiers['botplay'];
 
 		hud.add(countdown = new Countdown());
 		countdown.screenCenter();
@@ -450,7 +450,7 @@ class PlayState extends FunkinState {
 
 		note.judge = judge.name;
 
-		if (Settings.data.gameplaySettings['onlySicks'] && judgeID != 0) die();
+		if (Settings.data.gameplayModifiers['onlySicks'] && judgeID != 0) die();
 	
 		if (!note.breakOnHit) {
 			totalNotesPlayed += judge.accuracy;
@@ -487,7 +487,7 @@ class PlayState extends FunkinState {
 
 		ScriptHandler.call('noteMiss', [strumline, note]);
 		
-		if (Settings.data.gameplaySettings['instakill'] || Settings.data.gameplaySettings['onlySicks']) die();
+		if (Settings.data.gameplayModifiers['instakill'] || Settings.data.gameplayModifiers['onlySicks']) die();
 
 		comboBreaks++;
 		combo = 0;
@@ -560,7 +560,7 @@ class PlayState extends FunkinState {
 						score: score,
 						accuracy: accuracy,
 
-						modifiers: Settings.data.gameplaySettings.copy()
+						modifiers: Settings.data.gameplayModifiers.copy()
 					});
 
 					if (storyMode) {
@@ -570,7 +570,7 @@ class PlayState extends FunkinState {
 								weekID: weekData.fileName,
 								difficulty: Difficulty.current,
 								score: score,
-								modifiers: Settings.data.gameplaySettings.copy()
+								modifiers: Settings.data.gameplayModifiers.copy()
 							});
 							weekData = null;
 							storyScore = 0;

@@ -1,7 +1,7 @@
 package funkin.states;
 
 import funkin.objects.MenuCharacter;
-import funkin.substates.GameplayChangersSubstate;
+import funkin.substates.GameplayModifiersMenu;
 import flixel.graphics.FlxGraphic;
 import funkin.backend.Scores.WeekPlayData;
 
@@ -137,7 +137,7 @@ class StoryMenuState extends FunkinState {
 
 		if (FlxG.keys.justPressed.CONTROL) {
 			persistentUpdate = false;
-			openSubState(new GameplayChangersSubstate());
+			openSubState(new GameplayModifiersMenu());
 		}
 
 		leftArrow.animation.play(Controls.pressed('ui_left') ? 'press' : 'idle');
@@ -154,7 +154,7 @@ class StoryMenuState extends FunkinState {
 		intendedScore = play.score;
 
 		info('current modifiers just in case you forget somehow:');
-		for (key => value in Settings.data.gameplaySettings) {
+		for (key => value in Settings.data.gameplayModifiers) {
 			Sys.println('$key: $value');
 		}
 		Sys.println('');

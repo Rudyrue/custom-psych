@@ -219,8 +219,8 @@ class DefaultHUD extends HUD {
 	dynamic function updateScoreTxt():Void {
 		var textToShow:String = 'Score: ${game.score}';
 
-		if (!Settings.data.gameplaySettings['onlySicks']) {
-			if (!Settings.data.gameplaySettings['instakill']) 
+		if (!Settings.data.gameplayModifiers['onlySicks']) {
+			if (!Settings.data.gameplayModifiers['instakill']) 
 				textToShow += ' | Combo Breaks: ${game.comboBreaks}';
 
 			textToShow += ' | Accuracy: ${Util.truncateFloat(game.accuracy, 2)}%';
