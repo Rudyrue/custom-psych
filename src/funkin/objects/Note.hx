@@ -245,7 +245,6 @@ class Note extends FlxSprite {
 
 	function loadAnims() {
 		final colour:String = colours[lane % directions.length];
-		trace(colour);
 		if (colour == null) return;
 
 		if (isSustain) {
