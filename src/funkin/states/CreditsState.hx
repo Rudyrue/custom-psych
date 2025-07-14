@@ -36,7 +36,7 @@ class CreditsState extends FunkinState {
 	override function create():Void {
 		super.create();
 
-		var yPos:Float = 100;
+		var yPos:Float = 200;
 		for (i => category in categories) {
 			add(category);
 			category.y = category.child.spawnPos.y = yPos;
@@ -66,7 +66,8 @@ class CreditsState extends FunkinState {
 
 		lerpSelected = FlxMath.lerp(curSelected, lerpSelected, Math.exp(-delta * 9.6));
 		for (i => category in categories) {
-			category.y = FlxMath.lerp(category.y, (i -  curSelected) * category.height, Math.exp(-delta * 9.6));
+			var curCategory:CreditGroup = curPerson.parent;
+			category.y = FlxMath.lerp(category.y, (i - categories.indexOf(curCategory)) * category.height + (categories.indexOf(category) == categories.indexOf(curCategory) ? category.members.indexOf(curPerson) * curPerson.height : 0), Math.exp(-delta * 9.6));
 		}
 	}
 
