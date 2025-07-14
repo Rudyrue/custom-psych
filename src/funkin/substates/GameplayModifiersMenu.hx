@@ -89,6 +89,25 @@ class GameplayModifiersMenu extends FlxSubState {
 				curModifier.action(newValue);
 			}
 		}
+
+		if (FlxG.keys.justPressed.R) {
+			if (FlxG.keys.pressed.SHIFT) {
+				for (modifier in list) {
+					modifier.action(Settings.default_data.gameplayModifiers[modifier.variable]);
+				}
+			} else curModifier.action(Settings.default_data.gameplayModifiers[curModifier.variable]);
+		}
+	}
+
+	override function close():Void {
+		for (modifier in list) {
+			if (!Settings.data.gameplayModifiers.exists(modifier.variable)) continue;
+			Settings.data.gameplayModifiers[modifier.variable] = modifier.value;
+		}
+
+		Settings.save();
+
+		super.close();
 	}
 
 	function changeSelection(?dir:Int = 0) {
@@ -139,6 +158,7 @@ class BoolModifier extends GameplayModifier {
 		checkbox.sprTracker = child;
 		checkbox.trackerOffset.x = child.width + 25;
 		checkbox.trackerOffset.y = 15;
+		checkbox.value = value;
 
 		this.action = function(changedValue:Bool) {
 			value = checkbox.value = changedValue;

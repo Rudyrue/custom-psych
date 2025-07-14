@@ -85,7 +85,7 @@ class SaveVariables {
 
 class Settings {
 	public static final default_data:SaveVariables = {};
-	public static var data:SaveVariables = default_data;
+	public static var data:SaveVariables = {};
 
 	public static function save() {
 		for (key in Reflect.fields(data)) {
