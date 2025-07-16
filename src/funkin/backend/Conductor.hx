@@ -33,12 +33,7 @@ class Conductor extends flixel.FlxBasic {
     public static var volume(default, set):Float = 1.0;
 
     public static var visualTime:Float = 0.0;
-    public static var rawTime(default, set):Float = 0.0;
-	static function set_rawTime(value:Float):Float {
-		if (inst != null && inst.playing) return inst.time = value;
-		return _time = value;
-	}
-
+    public static var rawTime:Float = 0.0;
     public static var timingPoints(default, set):Array<TimingPoint> = [];
     static function set_timingPoints(value:Array<TimingPoint>):Array<TimingPoint> {
 		if (value == null || value.length == 0) {
@@ -71,6 +66,9 @@ class Conductor extends flixel.FlxBasic {
     @:isVar public static var mainVocals(get, set):FlxSound;
     @:isVar public static var opponentVocals(get, set):FlxSound;
     public static var vocals:FlxSoundGroup;
+
+	static var _metronomeSound:FlxSound;
+	public static var metronome:Bool = false;
 
     public static final vocalResyncDiff:Float = 5;
 
@@ -152,7 +150,9 @@ class Conductor extends flixel.FlxBasic {
 		visualTime = rawTime + _resyncTimer;
 	*/
 
-	static var _time:Float = 0.0;
+	// used for countdown
+	public static var _time:Float = 0.0;
+	
     static var _lastTime:Float = 0.0;
     static var _resyncTimer:Float = 0.0;
 	static var _lastTimestamp:Float = 0.0;
@@ -163,7 +163,6 @@ class Conductor extends flixel.FlxBasic {
 		deltaTime *= 1000;
 		if (inst == null || !inst.playing) {
 			_time += deltaTime * rate;
-			@:bypassAccessor
 			rawTime = _time + offset;
 			visualTime = rawTime;
 			return;
@@ -188,9 +187,7 @@ class Conductor extends flixel.FlxBasic {
 		// makes it easier to fuck with scroll velocities and such
 
 		// USE THIS FOR JUDGEMENT MATH, **NOT FOR VISUAL POSITION**
-		_time = inst.time;
-		@:bypassAccessor
-		rawTime = _time + offset;
+		rawTime = inst.time + offset;
 
 		// USE THIS FOR VISUAL POSITION, **NOT FOR JUDGEMENT MATH (ie note.rawHitTime)**
 		visualTime = rawTime + _resyncTimer;
@@ -226,7 +223,10 @@ class Conductor extends flixel.FlxBasic {
         var nextMeasure:Int = Math.floor(_fMeasure);
 
         if (step != nextStep) onStep(step = nextStep);
-        if (beat != nextBeat) onBeat(beat = nextBeat);
+        if (beat != nextBeat) {
+			if (metronome) FlxG.sound.play(Paths.sound('metronome'));
+			onBeat(beat = nextBeat);
+		}
         if (measure != nextMeasure) onMeasure(measure = nextMeasure);
     }
 

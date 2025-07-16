@@ -100,6 +100,10 @@ class OptionsState extends FunkinState {
 				'Like from StepMania, it plays a hitsound for when you should hit a note.',
 				'assistClaps'
 			),
+			new BoolOption('Metronome',
+				'Plays a tick every beat.\nCan help with being in sync to the song.',
+				'metronome'
+			),
 			new BoolOption('Mechanics',
 				'Enables mechanics for specific songs.\n(gremlin/signs from expurgation, saws from termination, etc)',
 				'mechanics'

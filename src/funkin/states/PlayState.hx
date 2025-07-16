@@ -183,6 +183,7 @@ class PlayState extends FunkinState {
 		downscroll = Settings.data.downscroll;
 		scrollType = Settings.data.scrollType;
 		_rawScrollSpeed = Settings.data.scrollSpeed;
+		
 
 		ScriptHandler.loadFromDir('scripts');
 
@@ -312,6 +313,7 @@ class PlayState extends FunkinState {
 		}
 		countdown.onFinish = function() {
 			ScriptHandler.call('songStarted');
+			Conductor.metronome = Settings.data.metronome;
 			Conductor.play();
 			updateTime = true;
 		}
@@ -320,7 +322,8 @@ class PlayState extends FunkinState {
 			countdown.finished = true;
 			countdown.onFinish();
 		} else {
-			Conductor.rawTime = (Conductor.crotchet * -5);
+			
+			Conductor._time = (Conductor.crotchet * -5);
 			countdown.start();
 		}
 
@@ -357,6 +360,7 @@ class PlayState extends FunkinState {
 
 	override function destroy():Void {
 		ScriptHandler.call('destroy');
+		Conductor.metronome = false;
 
 		closeSubState();
 		camGame.setFilters([]);

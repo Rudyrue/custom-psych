@@ -24,6 +24,7 @@ class SaveVariables {
 	var mechanics:Bool = true;
 	var noteOffset:Float = 0;
 	var assistClaps:Bool = false;
+	var metronome:Bool = false;
 	var pauseType:String = 'Unlimited';
 
 	// graphics (that affect performance)

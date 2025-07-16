@@ -55,8 +55,8 @@ class Countdown extends FunkinSprite {
 	var _time:Float;
 	var curTick:Int;
 	override function update(elapsed:Float):Void {
-		if (finished) return;
 		alpha -= elapsed / (Conductor.crotchet * 0.001);
+		if (finished) return;
 
 		_time += (elapsed * 1000) * Conductor.rate;
 
@@ -69,7 +69,6 @@ class Countdown extends FunkinSprite {
 		if (_time >= 0) {
 			finished = true;
 			active = false;
-			alpha = 0;
 			onFinish();
 		}
 	}
