@@ -164,9 +164,6 @@ class CreditsState extends FunkinState {
 		changeSelection();
 	}
 
-	var lerpCategory:Float = 0.;
-	var lerpSelected:Float = 0.0;
-
 	override function update(delta:Float):Void {
 		super.update(delta);
 
@@ -183,7 +180,6 @@ class CreditsState extends FunkinState {
 
 		if (FlxG.mouse.wheel != 0) changeSelection(-FlxG.mouse.wheel);
 		
-		var curCategory = curPerson.parent;
 		var prevCat = curCategoryNum - 1;
 		var yOff:Float = -25.;
 		if (prevCat >= 0) {
