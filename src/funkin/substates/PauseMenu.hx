@@ -118,9 +118,7 @@ class PauseMenu extends flixel.FlxSubState {
 				changingDifficulty = false;
 				curSelected = 0;
 				changeSelection();
-			} else {
-			
-			}
+			} else resume();
 		}
 
 		if (Controls.justPressed('accept') || FlxG.mouse.justPressed) {
