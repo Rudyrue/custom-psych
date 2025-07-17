@@ -3,17 +3,18 @@ package funkin.states;
 import funkin.objects.AttachedSprite;
 
 class CreditsState extends FunkinState {
-	// used for curSelected
-	// DO NOT MODIFY
-	var people:Array<Person> = [];
-
-	// MODIFY THIS INSTEAD
-	// IF YOU WANT TO ADD CREDIT
-	var categories:Array<CreditGroup> = [
+	var list:Array<CreditGroup> = [ // MODIFY THIS IF YOU WANT TO ADD CREDIT
 		new CreditGroup('group 1', [
 			new Person('person 1', 'they did things', 'programmer'),
 			new Person('person 2', 'they also did things', 'artist'),
-			new Person('person 3', 'they maybe did things', 'moral help')
+			new Person('person 3', 'they maybe did things', 'moral help'),
+			new Person('person 4', 'they maybe did things', 'moral help'),
+			new Person('person 5', 'they maybe did things', 'moral help'),
+			new Person('person 6', 'they maybe did things', 'moral help'),
+			new Person('person 7', 'they maybe did things', 'moral help'),
+			new Person('person 8', 'they maybe did things', 'moral help'),
+			new Person('person 9', 'they maybe did things', 'moral help'),
+			new Person('person 10', 'they maybe did things', 'moral help')
 		]),
 
 		new CreditGroup('group 2', [
@@ -27,28 +28,52 @@ class CreditsState extends FunkinState {
 			new Person('person 2', 'they also did things', 'artist'),
 			new Person('person 3', 'they maybe did things', 'moral help')
 		]),
+		
+		new CreditGroup('group 4', [
+			new Person('person 1', 'they did things', 'programmer'),
+			new Person('person 2', 'they also did things', 'artist'),
+			new Person('person 3', 'they maybe did things', 'moral help')
+		]),
+		
+		new CreditGroup('group 5', [
+			new Person('person 1', 'they did things', 'programmer'),
+			new Person('person 2', 'they also did things', 'artist'),
+			new Person('person 3', 'they maybe did things', 'moral help')
+		])
 	];
+	
+	// used for curSelected
+	// DO NOT MODIFY
+	var people:Array<Person> = [];
+	
+	var categories:FlxTypedSpriteGroup<CreditGroup>;
 
 	var curSelected:Int = 0;
+	var curCategoryNum:Int = 0;
 	var curPerson(get, never):Person;
 	function get_curPerson():Person return people[curSelected];
 
 	override function create():Void {
 		super.create();
-
-		var yPos:Float = 200;
-		for (i => category in categories) {
-			add(category);
-			category.y = category.child.spawnPos.y = yPos;
-			category.child.targetY = i;
-			yPos += category.height + 25;
-
-			for (person in category.people.members) people.push(person);
+		
+		categories = new FlxTypedSpriteGroup<CreditGroup>();
+		add(categories);
+		
+		var yPos:Float = 0.;
+		for (i => credit in list) {
+			categories.add(credit);
+			
+			credit.y = credit.child.spawnPos.y = yPos;
+			credit.child.targetY = i;
+			yPos += credit.height + 25;
+			
+			for (person in credit.people.members) people.push(person);
 		}
 
 		changeSelection();
 	}
 
+	var lerpCategory:Float = 0.;
 	var lerpSelected:Float = 0.0;
 	override function update(delta:Float):Void {
 		super.update(delta);
@@ -61,18 +86,22 @@ class CreditsState extends FunkinState {
 		if (downJustPressed || Controls.justPressed('ui_up')) {
 			changeSelection(downJustPressed ? 1 : -1);
 		}
-
-		var lerpVal:Float = Math.exp(-delta * 9.6);
-
-		lerpSelected = FlxMath.lerp(curSelected, lerpSelected, Math.exp(-delta * 9.6));
-		for (i => category in categories) {
-			var curCategory:CreditGroup = curPerson.parent;
-			category.y = FlxMath.lerp(category.y, (i - categories.indexOf(curCategory)) * category.height + (categories.indexOf(category) == categories.indexOf(curCategory) ? category.members.indexOf(curPerson) * curPerson.height : 0), Math.exp(-delta * 9.6));
+		
+		var curCategory = curPerson.parent;
+		var prevCat = curCategoryNum - 1;
+		var yOff:Float = -25.;
+		if (prevCat >= 0) {
+			var cat = categories.members[prevCat];
+			yOff = cat.child.spawnPos.y + cat.height + 25;
 		}
+		
+		var yDesired:Float = (200. - yOff) - curPerson.child.spawnPos.y;
+		categories.y = FlxMath.lerp(yDesired, categories.y, Math.exp(-delta * 9.6));
 	}
 
 	function changeSelection(?dir:Int = 0) {
 		curSelected = FlxMath.wrap(curSelected + dir, 0, people.length - 1);
+		curCategoryNum = categories.members.indexOf(curPerson.parent);
 
 		for (i => person in people) {
 			person.alpha = curSelected == i ? 1 : 0.5;
@@ -98,7 +127,7 @@ class CreditGroup extends FlxSpriteGroup {
 		for (person in list) {
 			people.add(person);
 			person.screenCenter(X);
-			person.y = yPos;
+			person.y = person.child.spawnPos.y = yPos;
 			yPos += person.height;
 
 			person.parent = this;
