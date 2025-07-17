@@ -13,6 +13,7 @@ class PauseMenu extends flixel.FlxSubState {
 	public static var openCount:Int = 0;
 
 	public static var wentToOptions:Bool = false;
+	public var changingDifficulty:Bool = false;
 
 	var curSelected:Int = 0;
 
@@ -24,6 +25,8 @@ class PauseMenu extends flixel.FlxSubState {
 	}
 
 	override function create():Void {
+		if (Difficulty.list.length > 1) options.insert(2, 'Change Difficulty');
+
 		if (Settings.data.pauseType != 'Unlimited') {
 			openCount++;
 			if (openCount > 3 || Settings.data.pauseType == 'Disabled') options.remove('Resume');
@@ -66,11 +69,7 @@ class PauseMenu extends flixel.FlxSubState {
 
 		add(optionGrp = new FlxTypedSpriteGroup<Alphabet>());
 
-		for (index => option in options) {
-			final alphabet:Alphabet = optionGrp.add(new Alphabet(90, 320, option, BOLD, LEFT));
-			alphabet.isMenuItem = true;
-			alphabet.targetY = index;
-		}
+		regenerateOptions(options);
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(song, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
@@ -93,6 +92,16 @@ class PauseMenu extends flixel.FlxSubState {
 		FlxG.sound.play(Paths.sound('scroll'));
 	}
 
+	function regenerateOptions(list:Array<String>) {
+		optionGrp.clear();
+
+		for (index => option in list) {
+			final alphabet:Alphabet = optionGrp.add(new Alphabet(90, 320, option, BOLD, LEFT));
+			alphabet.isMenuItem = true;
+			alphabet.targetY = index;
+		}
+	}
+
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
@@ -103,21 +112,36 @@ class PauseMenu extends flixel.FlxSubState {
 
 		if (FlxG.mouse.wheel != 0) changeSelection(-FlxG.mouse.wheel);
 
+		if (Controls.justPressed('back')) {
+			if (changingDifficulty) {
+				regenerateOptions(options);
+				changingDifficulty = false;
+				curSelected = 0;
+				changeSelection();
+			} else {
+			
+			}
+		}
+
 		if (Controls.justPressed('accept') || FlxG.mouse.justPressed) {
-			switch (options[curSelected]) {
-				case 'Resume':
-					destroyMusic();
-					Conductor.resume();
-					FlxG.mouse.visible = false;
-					parent.persistentUpdate = true;
-					close();
-					FlxG.autoPause = Settings.data.autoPause;
+			if (changingDifficulty) {
+				Difficulty.current = Difficulty.list[curSelected];
+				FunkinState.switchState(new PlayState());
+				close();
+			} else switch (options[curSelected]) {
+				case 'Resume': resume();
 					
 				case 'Restart': 
 					destroyMusic();
 					FlxG.mouse.visible = false;
 					FunkinState.resetState();
 					FlxG.autoPause = Settings.data.autoPause;
+
+				case 'Change Difficulty': 
+					regenerateOptions(Difficulty.list);
+					changingDifficulty = true;
+					curSelected = 0;
+					changeSelection();
 					
 				case 'Options': 
 					PauseMenu.wentToOptions = true;
@@ -146,6 +170,15 @@ class PauseMenu extends flixel.FlxSubState {
 		music.stop();
 		music.destroy();
 		music = null;
+	}
+
+	function resume() {
+		destroyMusic();
+		Conductor.resume();
+		FlxG.mouse.visible = false;
+		parent.persistentUpdate = true;
+		close();
+		FlxG.autoPause = Settings.data.autoPause;
 	}
 
 	override function close() {
