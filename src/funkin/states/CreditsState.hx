@@ -138,7 +138,7 @@ class CreditsState extends FunkinState {
 		add(categories = new FlxTypedSpriteGroup<CreditGroup>());
 
 		add(descBG = new FunkinSprite(0, 550));
-		descBG.makeGraphic(1050, 150, FlxColour.BLACK);
+		descBG.makeGraphic(900, 100, FlxColour.BLACK);
 		descBG.alpha = 0.7;
 		descBG.screenCenter(X);
 
