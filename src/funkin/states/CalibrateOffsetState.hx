@@ -43,11 +43,12 @@ class CalibrateOffsetState extends FunkinState {
 		strumline.y = playfield.downscroll ? FlxG.height - 150 : 50;
 		playfield.noteHit = noteHit;
 		playfield.visible = skipIntro;
+		playfield.active = skipIntro;
 
 		load();
 		
 		// don't need to worry about offset for this one
-		Conductor.rawTime = -extraTime;
+		Conductor._time = -extraTime;
 		if (skipIntro) start();
 
 		add(introBG = new FlxSprite().makeGraphic(1, 1, FlxColour.BLACK));
@@ -100,10 +101,13 @@ class CalibrateOffsetState extends FunkinState {
 	function start():Void {
 		Conductor.playing = true;
 		new FlxTimer().start(extraTime / 1000, function(_) Conductor.play());
+		playfield.active = true;
 
 		if (skipIntro) return;
 
 		playfield.visible = true;
+		playfield.active = true;
+		
 		FlxTween.tween(introBG, {alpha: 0}, 0.5);
 		FlxTween.tween(introText, {alpha: 0}, 0.5);
 	}
