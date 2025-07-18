@@ -25,6 +25,13 @@ class Countdown extends FunkinSprite {
 	public var ticks:Int = 4;
 	public var finished:Bool = true;
 	public var silent:Bool = false;
+	
+	public var starting:Bool = false;
+	
+	var started:Bool = false;
+	
+	var startOffset:Float = 0.0;
+	var beatOffset:Float = 0.0;
 
 	public function new(?x:Float, ?y:Float) {
 		super(x, y);
@@ -42,33 +49,43 @@ class Countdown extends FunkinSprite {
 	public function start():Void {
 		finished = false;
 		active = true;
-		_time = (Conductor.crotchet * -(ticks + 1));
-
-/*		// give the game time to start it correctly on positive offsets
-		var extraTime:Float = Math.floor((Conductor.offset * -1) / Conductor.crotchet);
-		if (extraTime > 0) _time -= Conductor.crotchet * extraTime;
-*/
+		_lastBeat = ticks + 2;
+		_time = (Conductor.crotchet * -ticks);
+		
+		var offset:Float = Conductor.offset;
+		if (offset > 0) beatOffset = offset;
+		else {
+			if (starting) {
+				var songStartOff:Float = offset - _time;
+				if (songStartOff < 0) _time += songStartOff;
+			}
+			
+			startOffset = offset;
+		}
+		
 		onStart();
 	}
 
-	var _lastBeat:Int = 0;
+	var _lastBeat:Int = 6;
 	var _time:Float;
 	var curTick:Int;
 	override function update(elapsed:Float):Void {
 		alpha -= elapsed / (Conductor.crotchet * 0.001);
-		if (finished) return;
-
-		_time += (elapsed * 1000) * Conductor.rate;
-
-		var possibleBeat:Int = Math.floor((_time + Conductor.offset) / Conductor.crotchet) * -1;
-		if (possibleBeat != _lastBeat && curTick >= 1) {
-			beat(curTick--);
-			_lastBeat = possibleBeat;
+		if (finished) {
+			if (alpha <= 0) active = false;
+			return;
 		}
 
-		if (_time >= 0) {
-			finished = true;
-			active = false;
+		_time += (elapsed * 1000) * Conductor.rate;
+		
+		var possibleBeat:Int = Math.floor((_time - beatOffset) / Conductor.crotchet) * -1;
+		if (_lastBeat > possibleBeat && curTick > 0) {
+			_lastBeat = possibleBeat;
+			beat(curTick--);
+		}
+
+		if (!started && _time >= startOffset) {
+			started = true;
 			onFinish();
 		}
 	}
@@ -78,6 +95,8 @@ class Countdown extends FunkinSprite {
 
 		onTick(curTick);
 		alpha = 1;
+		
+		if (curTick == 0) finished = true;
 	}
 
 	public function stop():Void {
