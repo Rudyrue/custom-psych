@@ -125,6 +125,7 @@ class PauseMenu extends flixel.FlxSubState {
 			if (changingDifficulty) {
 				Difficulty.current = Difficulty.list[curSelected];
 				FunkinState.switchState(new PlayState());
+				FlxG.autoPause = Settings.data.autoPause;
 				close();
 			} else switch (options[curSelected]) {
 				case 'Resume': resume();
