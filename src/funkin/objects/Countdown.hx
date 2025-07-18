@@ -26,6 +26,10 @@ class Countdown extends FunkinSprite {
 	public var finished:Bool = true;
 	public var silent:Bool = false;
 	
+	public var starting:Bool = false;
+	
+	var started:Bool = false;
+	
 	var startOffset:Float = 0.0;
 	var beatOffset:Float = 0.0;
 
@@ -45,33 +49,43 @@ class Countdown extends FunkinSprite {
 	public function start():Void {
 		finished = false;
 		active = true;
+		_lastBeat = ticks + 2;
 		_time = (Conductor.crotchet * -(ticks + 1));
 		
 		var offset:Float = Conductor.offset;
 		if (offset > 0) beatOffset = offset;
-		else startOffset = offset;
+		else {
+			if (starting) {
+				var songStartOff:Float = offset - _time;
+				if (songStartOff < 0) _time += songStartOff;
+			}
+			
+			startOffset = offset;
+		}
 		
 		onStart();
 	}
 
-	var _lastBeat:Int = 0;
+	var _lastBeat:Int = 6;
 	var _time:Float;
 	var curTick:Int;
 	override function update(elapsed:Float):Void {
 		alpha -= elapsed / (Conductor.crotchet * 0.001);
-		if (finished) return;
+		if (finished) {
+			if (alpha <= 0) active = false;
+			return;
+		}
 
 		_time += (elapsed * 1000) * Conductor.rate;
 		
 		var possibleBeat:Int = Math.floor((_time - beatOffset) / Conductor.crotchet) * -1;
-		if (possibleBeat != _lastBeat && curTick >= 1) {
-			beat(curTick--);
+		if (_lastBeat > possibleBeat && curTick > 0) {
 			_lastBeat = possibleBeat;
+			beat(curTick--);
 		}
 
-		if (_time >= startOffset) {
-			finished = true;
-			active = false;
+		if (!started && _time >= startOffset) {
+			started = true;
 			onFinish();
 		}
 	}
@@ -81,6 +95,8 @@ class Countdown extends FunkinSprite {
 
 		onTick(curTick);
 		alpha = 1;
+		
+		if (curTick == 0) finished = true;
 	}
 
 	public function stop():Void {

@@ -163,7 +163,7 @@ class Conductor extends flixel.FlxBasic {
 		deltaTime *= 1000;
 		if (inst == null || !inst.playing) {
 			_time += deltaTime * rate;
-			rawTime = _time;
+			rawTime = _time + Math.max(0, offset);
 			visualTime = rawTime;
 			return;
 		}
