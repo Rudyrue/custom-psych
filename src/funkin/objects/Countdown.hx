@@ -50,7 +50,7 @@ class Countdown extends FunkinSprite {
 		finished = false;
 		active = true;
 		_lastBeat = ticks + 2;
-		_time = (Conductor.crotchet * -(ticks + 1));
+		_time = (Conductor.crotchet * -ticks);
 		
 		var offset:Float = Conductor.offset;
 		if (offset > 0) beatOffset = offset;

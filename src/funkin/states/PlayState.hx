@@ -322,7 +322,7 @@ class PlayState extends FunkinState {
 			countdown.finished = true;
 			countdown.onFinish();
 		} else {
-			Conductor._time = (Conductor.crotchet * -5);
+			Conductor._time = (Conductor.crotchet * -4);
 			countdown.starting = true;
 			countdown.start();
 		}
