@@ -163,7 +163,7 @@ class Conductor extends flixel.FlxBasic {
 		deltaTime *= 1000;
 		if (inst == null || !inst.playing) {
 			_time += deltaTime * rate;
-			rawTime = _time + offset;
+			rawTime = _time;
 			visualTime = rawTime;
 			return;
 		}
@@ -343,18 +343,19 @@ class Conductor extends flixel.FlxBasic {
         return beatFromTime;
     }
 
-    public static function getPointFromTime(timeAt:Float):TimingPoint {
-        var lastPoint:TimingPoint = {};
-        if (timingPoints.length == 0) return lastPoint;
-
+	public static function getPointFromTime(timeAt:Float):TimingPoint {
+		var lastPoint:TimingPoint = {};
+		if (timingPoints.length == 0) return lastPoint;
+		lastPoint = timingPoints[0];
+		
 		// to prevent running a for loop just for one object
-		if (timingPoints.length == 1) return timingPoints[0];
-
-        for (i => point in timingPoints) {
-            if (timeAt >= point.offsettedTime) lastPoint = point;
-            else break;
-        }
-
-        return lastPoint;
-    }
+		if (timingPoints.length == 1) return lastPoint;
+		
+		for (i => point in timingPoints) {
+			if (timeAt >= point.offsettedTime) lastPoint = point;
+			else break;
+		}
+		
+		return lastPoint;
+	}
 }

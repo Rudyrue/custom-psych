@@ -25,6 +25,9 @@ class Countdown extends FunkinSprite {
 	public var ticks:Int = 4;
 	public var finished:Bool = true;
 	public var silent:Bool = false;
+	
+	var startOffset:Float = 0.0;
+	var beatOffset:Float = 0.0;
 
 	public function new(?x:Float, ?y:Float) {
 		super(x, y);
@@ -43,11 +46,11 @@ class Countdown extends FunkinSprite {
 		finished = false;
 		active = true;
 		_time = (Conductor.crotchet * -(ticks + 1));
-
-/*		// give the game time to start it correctly on positive offsets
-		var extraTime:Float = Math.floor((Conductor.offset * -1) / Conductor.crotchet);
-		if (extraTime > 0) _time -= Conductor.crotchet * extraTime;
-*/
+		
+		var offset:Float = Conductor.offset;
+		if (offset > 0) beatOffset = offset;
+		else startOffset = offset;
+		
 		onStart();
 	}
 
@@ -59,14 +62,14 @@ class Countdown extends FunkinSprite {
 		if (finished) return;
 
 		_time += (elapsed * 1000) * Conductor.rate;
-
-		var possibleBeat:Int = Math.floor((_time + Conductor.offset) / Conductor.crotchet) * -1;
+		
+		var possibleBeat:Int = Math.floor((_time - beatOffset) / Conductor.crotchet) * -1;
 		if (possibleBeat != _lastBeat && curTick >= 1) {
 			beat(curTick--);
 			_lastBeat = possibleBeat;
 		}
 
-		if (_time >= 0) {
+		if (_time >= startOffset) {
 			finished = true;
 			active = false;
 			onFinish();
