@@ -25,7 +25,7 @@ class InitState extends flixel.FlxState {
 		FlxG.keys.preventDefaultKeys = [TAB];
 		FlxG.cameras.useBufferLocking = FlxG.mouse.useSystemCursor = true;
 
-		if (Settings.data.flashingLights) {
+		if (Settings.data.flashingLights && !FlxG.save.data.seenFlashWarning) {
 			FlxG.switchState(new FlashingState());
 			return;
 		}

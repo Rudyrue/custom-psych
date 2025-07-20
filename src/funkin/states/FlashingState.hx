@@ -32,6 +32,7 @@ class FlashingState extends flixel.FlxState {
 		var backJustPressed:Bool = Controls.justPressed('back');
 		if (backJustPressed || Controls.justPressed('accept')) {
 			pressedKey = true;
+			FlxG.save.data.seenFlashWarning = true;
 			if (backJustPressed) {
 				FlxG.sound.play(Paths.sound('cancel'));
 				FlxTween.tween(warnText, {alpha: 0}, 1, {
