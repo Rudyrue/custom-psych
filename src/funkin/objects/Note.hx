@@ -167,7 +167,6 @@ class Note extends FlxSprite {
 		if (isSustain) {
 			multAlpha = 0.6;
 			flipY = Settings.data.downscroll;
-			antialiasing = false; // fixes some gap bullshittery
 
 			correctionOffset.x += width * 0.5;
 			animation.play('holdend');
@@ -177,8 +176,8 @@ class Note extends FlxSprite {
 			if (prevNote.isSustain) {
 				prevNote.animation.play('hold');
 
-				prevNote.scale.y *= (Conductor.stepCrotchet * 0.01) * 1.05;
-				//prevNote.updateHitbox();
+				prevNote.setGraphicSize(prevNote.width, (Conductor.stepCrotchet * 0.45));
+				prevNote.updateHitbox();
 			}
 		}
 
