@@ -72,7 +72,7 @@ class Receptor extends FunkinSprite {
 	
 	override function update(e:Float) {
 		if (holdTime > 0) {
-			holdTime -= e;
+			holdTime -= (e * FlxG.animationTimeScale);
 			
 			if (holdTime <= 0) playAnim('default');
 		}
