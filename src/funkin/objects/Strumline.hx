@@ -43,12 +43,15 @@ class Strumline extends FlxTypedSpriteGroup<Receptor> {
 class Receptor extends FunkinSprite {
 	public var queueStatic:Bool = false;
 	public var parent:Strumline;
+	public var holdTime:Float = 0.0;
 	public function new(parent:Strumline, lane:Int) {
 		super();
 
 		this.parent = parent;
 
 		animation.finishCallback = _ -> {
+			if (holdTime > 0) return;
+			
 			active = false;
 
 			if (!(parent.ai || queueStatic) || animation.curAnim.name != 'notePressed') return;
@@ -65,6 +68,15 @@ class Receptor extends FunkinSprite {
 		animation.addByPrefix('notePressed', '$anim confirm', 48, false);
 
 		playAnim('default');
+	}
+	
+	override function update(e:Float) {
+		if (holdTime > 0) {
+			holdTime -= e;
+			
+			if (holdTime <= 0) playAnim('default');
+		}
+		super.update(e);
 	}
 
 	override function playAnim(name:String, ?forced:Bool = true) {

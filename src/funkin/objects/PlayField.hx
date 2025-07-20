@@ -177,6 +177,10 @@ class PlayField extends flixel.group.FlxSpriteGroup {
 			if (note.wasHit) return;
 
 			strum.playAnim('notePressed');
+			
+			if (note.animation.name == 'holdend') strum.holdTime = 0;
+			else strum.holdTime = (Conductor.stepCrotchet + 100) / 1000.0;
+			
 			note.wasHit = true;
 			sustainHit(strum.parent, note);
 			return;
@@ -185,6 +189,9 @@ class PlayField extends flixel.group.FlxSpriteGroup {
 		if (Settings.data.pressAnimOnTap) strum.playAnim('notePressed');
 
 		// normal notes
+		if (note.pieces.length > 0) strum.holdTime = (Conductor.stepCrotchet + 100) / 1000.0;
+		else strum.holdTime = 0;
+		
 		note.wasHit = true;
 		noteHit(strum.parent, note);
 		note.destroy();
