@@ -2,7 +2,13 @@ package funkin.objects;
 
 class Strumline extends FlxTypedSpriteGroup<Receptor> {
 	public static final keyCount:Int = 4;
-	public static var size:Float = Settings.data.strumlineSize;
+	public static final desiredWidth:Float = 160;
+	public static var size(default, set):Float = Settings.data.strumlineSize;
+	static function set_size(value:Float) {
+		swagWidth = desiredWidth * value;
+		return size = value;
+	}
+	public static var swagWidth:Float = desiredWidth * size;
 	public var healthMult:Float = 1;
 	public var skin(default, set):String;
 	public dynamic function character():Character return null;
@@ -35,7 +41,8 @@ class Strumline extends FlxTypedSpriteGroup<Receptor> {
 			add(strum = new Receptor(this, i));
 			strum.scale.set(size, size);
 			strum.updateHitbox();
-			strum.x += strum.width * i;
+			strum.x += swagWidth * i;
+			strum.y += (swagWidth - strum.height) * 0.5;
 		}
 	}
 }
