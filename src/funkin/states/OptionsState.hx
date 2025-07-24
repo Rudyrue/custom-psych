@@ -486,11 +486,10 @@ class OptionsState extends FunkinState {
 		if (Controls.justPressed("back")) {
 			if (pagesDeep != -1) closePage();
 			else {
-				if (funkin.substates.PauseMenu.wentToOptions)
+				if (funkin.substates.PauseMenu.wentToOptions) {
 					FlxG.autoPause = Settings.data.autoPause;
 					FunkinState.switchState(new PlayState());
-				else
-					FunkinState.switchState(new MainMenuState());
+				} else FunkinState.switchState(new MainMenuState());
 			}
 		}
 	}

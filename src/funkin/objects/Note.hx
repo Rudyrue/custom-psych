@@ -191,7 +191,7 @@ class Note extends FlxSprite {
 			path = 'noteSkins/${Util.format(Settings.data.noteSkin)}';
 		}
 
-		if (!Paths.exists('images/$path.png')) path = Strumline.default_skin;
+		if (!Paths.exists('images/$path.png')) path = 'noteSkins/${Util.format(Settings.default_data.noteSkin)}';
 		
 		frames = Paths.sparrowAtlas(path);
 		loadAnims();

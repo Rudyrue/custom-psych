@@ -13,7 +13,7 @@ class Strumline extends FlxTypedSpriteGroup<Receptor> {
 	public var skin(default, set):String;
 	public dynamic function character():Character return null;
 	
-	public static inline var default_skin:String = 'noteSkins/funkin';
+	public static inline var default_skin:String = 'funkin';
 	function set_skin(value:String):String {
 		skin = value;
 		regenerate();
@@ -68,8 +68,7 @@ class Receptor extends FunkinSprite {
 		// modding by length will cause different behaviour here
 		// purple, blue, green, red, if it goes beyond that, it loops back, purple blue green red, and so on.
 		final anim:String = Note.directions[lane % Note.directions.length];
-		final formattedSkin:String = parent.skin.trim().toLowerCase().replace(' ', '-');
-		frames = Paths.sparrowAtlas('noteSkins/$formattedSkin');
+		frames = Paths.sparrowAtlas('noteSkins/${Util.format(parent.skin)}');
 		animation.addByPrefix('default', 'arrow${anim.toUpperCase()}', 24);
 		animation.addByPrefix('pressed', '$anim press', 48, false);
 		animation.addByPrefix('notePressed', '$anim confirm', 48, false);
