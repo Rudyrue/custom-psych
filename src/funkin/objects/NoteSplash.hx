@@ -5,6 +5,7 @@ import funkin.objects.Strumline;
 class NoteSplash extends FunkinSprite {
 	public var skin(default, set):String;
 	public var lane:Int = 0;
+	public var listOfAnims:Int = 2;
 	function set_skin(value:String):String {
 		reload(value);
 		return skin = value;
@@ -30,8 +31,11 @@ class NoteSplash extends FunkinSprite {
 		frames = Paths.sparrowAtlas(path);
 
 		var colour:String = Note.colours[lane];
-		animation.addByPrefix('hit1', 'note splash $colour 1', 24, false);
-		animation.addByPrefix('hit2', 'note splash $colour 2', 24, false);
+		for (i in 1...listOfAnims + 1) {
+			//if (!frames.frames.contains('note splash $colour $i')) continue; FUCK
+			animation.addByPrefix('hit$i', 'note splash $colour $i', 24, false);
+		}
+
 		animation.play('hit1');
 	
 		scale.set(0.7, 0.7);
@@ -43,7 +47,7 @@ class NoteSplash extends FunkinSprite {
 
 	public function hit(strum:Receptor) {
 		visible = true;
-		playAnim('hit${FlxG.random.int(1, 2)}');
+		playAnim('hit${FlxG.random.int(1, listOfAnims)}');
 		updateHitbox();
 		setPosition(strum.x + (strum.width - width) * 0.5, strum.y + (strum.height - height) * 0.5);
 

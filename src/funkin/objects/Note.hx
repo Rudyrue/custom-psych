@@ -192,15 +192,13 @@ class Note extends FlxSprite {
 		}
 
 		if (!Paths.exists('images/$path.png')) path = Strumline.default_skin;
-
-		var lastScaleY:Float = scale.y;
 		
 		frames = Paths.sparrowAtlas(path);
 		loadAnims();
 		if (!isSustain) {
 			centerOffsets();
 			centerOrigin();
-		} else scale.y = lastScaleY;
+		}
 
 		updateHitbox();
 	}

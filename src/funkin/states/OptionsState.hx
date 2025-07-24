@@ -231,7 +231,7 @@ class OptionsState extends FunkinState {
 			new ChoiceOption('Note Splash Skin',
 				'Choose a note splash skin to show in-game.',
 				'noteSplashSkin',
-				['None', 'Psych', 'Funkin']
+				['None', 'Psych', 'Funkin', 'Diamond', 'Electro', 'Sparks']
 			),
 			new ChoiceOption('Time Bar Type',
 				'What kind of time bar should be displayed in-game?',
