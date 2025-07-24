@@ -487,6 +487,7 @@ class OptionsState extends FunkinState {
 			if (pagesDeep != -1) closePage();
 			else {
 				if (funkin.substates.PauseMenu.wentToOptions)
+					FlxG.autoPause = Settings.data.autoPause;
 					FunkinState.switchState(new PlayState());
 				else
 					FunkinState.switchState(new MainMenuState());
