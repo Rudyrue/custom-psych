@@ -12,14 +12,8 @@ class Judgement {
 	public static var max(get, never):Judgement;
 	static function get_max():Judgement return list[list.length - 1];
 
-	public static var maxHitWindow(get, never):Float;
-	static function get_maxHitWindow():Float return max.timing;
-
 	public static var min(get, never):Judgement;
 	static function get_min():Judgement return list[0];
-
-	public static var minHitWindow(get, never):Float;
-	static function get_minHitWindow():Float return min.timing;
 
 	public var name:String;
 	public var timing:Float;
@@ -34,7 +28,7 @@ class Judgement {
 		var value:Int = list.length - 1;
 
 		for (i in 0...list.length) {
-			if (Math.abs(noteDev) >= list[i].timing) continue;
+			if (Math.abs(noteDev) > list[i].timing) continue;
 			value = i;
 			break;
 		}
@@ -46,7 +40,7 @@ class Judgement {
 		var judge:Judgement = max;
 
 		for (possibleJudge in list) {
-			if (Math.abs(noteDev) >= possibleJudge.timing) continue;
+			if (Math.abs(noteDev) > possibleJudge.timing) continue;
 			judge = possibleJudge;
 			break;
 		}
@@ -56,5 +50,9 @@ class Judgement {
 	
 	inline public static function resetHits():Void {
 		for (judge in list) judge.hits = 0;
+	}
+
+	public function toString():String {
+		return 'Judgement | Name: "$name" | Timing: $timing';
 	}
 }
