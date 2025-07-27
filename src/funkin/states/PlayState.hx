@@ -344,7 +344,7 @@ class PlayState extends FunkinState {
 
 		updateCameraScale(delta);
 
-		if (countdown.finished) eventHandler.update();
+		/*if (countdown.finished) */eventHandler.update();
 		stage.update(delta);
 
 		if (FlxG.keys.justPressed.F8) botplay = !botplay;
