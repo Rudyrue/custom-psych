@@ -160,11 +160,9 @@ class Note extends FlxSprite {
 		this.sustainLength = data.length;
 		//this.animSuffix = data.altAnim ? '-alt' : '';
 
-		if (!isSustain && lane < colours.length) { // Doing this 'if' check to fix the warnings on Senpai songs
+		if (!isSustain) {
 			animation.play('default');
-		}
-
-		if (isSustain) {
+		} else {
 			multAlpha = 0.6;
 			flipY = Settings.data.downscroll;
 
@@ -241,8 +239,8 @@ class Note extends FlxSprite {
 	}
 
 	function loadAnims() {
-		final colour:String = colours[lane % directions.length];
-		if (colour == null) return;
+		final colour:String = colours[lane % colours.length];
+		//if (colour == null) return;
 
 		if (isSustain) {
 			animation.addByPrefix('hold', '$colour hold piece');

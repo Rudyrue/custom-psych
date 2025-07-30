@@ -108,7 +108,7 @@ class Song {
 					length: note[2],
 					type: (note[3] is String ? note[3] : Note.defaultTypes[note[3]]) ?? '',
 					altAnim: section.altAnim,
-					player: note[1] > 3 != section.mustHitSection ? 1 : 0,
+					player: note[1] > (Strumline.keyCount - 1) != section.mustHitSection ? 1 : 0,
 				});
 			}
 		}
