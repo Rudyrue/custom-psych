@@ -72,8 +72,7 @@ class Note extends FlxSprite {
 
 	public var hittable(get, never):Bool;
 	function get_hittable():Bool {
-		final notDestroyed:Bool = exists && alive;
-		return notDestroyed && inHitRange && canHit && !missed;
+		return exists && inHitRange && canHit && !missed;
 	}
 
 	public var lateHitMult:Float = 1;
@@ -158,11 +157,9 @@ class Note extends FlxSprite {
 		this.player = data.player;
 		this.type = data.type;
 		this.sustainLength = data.length;
-		//this.animSuffix = data.altAnim ? '-alt' : '';
 
-		if (!isSustain) {
-			animation.play('default');
-		} else {
+		if (!isSustain) animation.play('default');
+		else {
 			multAlpha = 0.6;
 			flipY = Settings.data.downscroll;
 
