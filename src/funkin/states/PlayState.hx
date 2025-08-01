@@ -184,7 +184,6 @@ class PlayState extends FunkinState {
 		scrollType = Settings.data.scrollType;
 		_rawScrollSpeed = Settings.data.scrollSpeed;
 		
-
 		ScriptHandler.loadFromDir('scripts');
 
 		eventHandler = new EventHandler();

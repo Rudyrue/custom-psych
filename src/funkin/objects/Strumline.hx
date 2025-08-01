@@ -28,10 +28,13 @@ class Strumline extends FlxTypedSpriteGroup<Receptor> {
 		if (keyCount > 4) {
 			sizeMult = 1 - ((keyCount - 2) * 0.05);
 			spacing = (keyCount - 4) * 2;
-			
-			size = Settings.data.strumlineSize * sizeMult;
+		} else {
+			sizeMult = 1;
+			spacing = 0;
 		}
 		
+		size = Settings.data.strumlineSize * sizeMult;
+
 		this.moves = false;
 		this.ai = !player;
 		super(x, y);
