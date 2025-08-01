@@ -77,7 +77,6 @@ class FPSCounter extends Sprite {
 		final appMemory:String = Util.formatBytes(appMemoryInBytes);
 		final gcMemory:String = Util.formatBytes(gcMemoryInBytes);
 
-		// y'all are nerds smh.........................................
 		text.text = '$_current FPS\nRAM: [APP: $appMemory / GC: $gcMemory]';
 		
 		background.width = text.width + 10;
