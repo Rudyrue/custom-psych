@@ -20,8 +20,21 @@ class Strumline extends FlxTypedSpriteGroup<Receptor> {
 		return value;
 	}
 	public var ai:Bool;
+	
+	public static var sizeMult:Float = 0;
+	public static var spacing:Float = 0;
 
 	public function new(?x:Float, ?y:Float, ?player:Bool = false, ?skin:String) {
+		if (keyCount > 4) {
+			sizeMult = 1 - ((keyCount - 2) * 0.05);
+			spacing = (keyCount - 4) * 2;
+		} else {
+			sizeMult = 1;
+			spacing = 0;
+		}
+		
+		size = Settings.data.strumlineSize * sizeMult;
+
 		this.moves = false;
 		this.ai = !player;
 		super(x, y);
@@ -41,7 +54,7 @@ class Strumline extends FlxTypedSpriteGroup<Receptor> {
 			add(strum = new Receptor(this, i));
 			strum.scale.set(size, size);
 			strum.updateHitbox();
-			strum.x += swagWidth * i;
+			strum.x += (swagWidth - spacing) * i;
 			strum.y += (swagWidth - strum.height) * 0.5;
 		}
 	}
