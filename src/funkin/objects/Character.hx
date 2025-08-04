@@ -138,17 +138,19 @@ class Character extends FunkinSprite {
 	}
 
 	public function dance(?forced:Bool = false) {
-		if ((!forced && animation.curAnim == null) || inEditor) return;
+		if (!forced && animation.curAnim == null) return;
 
 		// support for gf/spooky kids characters
 		if (dancer && !forced) forced = dancing;
 
-		if (!forced && ((dancing && !animation.curAnim.finished) || _singTimer > 0.0)) return;
+		var finished:Bool = animation.curAnim?.finished ?? true;
+		var looped:Bool = animation.curAnim?.looped ?? false;
+		if (!forced && ((dancing && (!looped && !finished)) || _singTimer > 0.0)) return;
 
 		playAnim(danceList[animIndex]);
 		animIndex = FlxMath.wrap(animIndex + 1, 0, danceList.length - 1);
 	}
-
+	
 	override function playAnim(name:String, ?forced:Bool = true) {
 		name = '$name$animSuffix';
 		super.playAnim(name, forced);
