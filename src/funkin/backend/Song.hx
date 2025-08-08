@@ -117,7 +117,7 @@ class Song {
 		return notes;
 	}
 
-	static var formats:Array<String> = ['json', 'sm', 'osu'];
+	static var formats:Array<String> = ['json', 'sm', 'osu', 'ssc'];
 	public static function getFile(song:String, diff:String) {
 		diff = Difficulty.format(diff);
 		var file:String = '$diff.${formats[0]}';

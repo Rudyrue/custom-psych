@@ -393,6 +393,7 @@ class OptionsState extends FunkinState {
 
 	public var descriptionBG:FunkinSprite;
 	public var descriptionText:FlxText;
+	var holdTime:Float = 0;
 
 	override function create():Void {
 		super.create();
@@ -458,9 +459,12 @@ class OptionsState extends FunkinState {
 
 		if (optionNames.members.length > 1) {
 			final downJustPressed:Bool = Controls.justPressed('ui_down');
-			if (downJustPressed || Controls.justPressed('ui_up'))
+			if (downJustPressed || Controls.justPressed('ui_up')) {
 				changeSelection(downJustPressed ? 1 : -1);
+				holdTime = 0;
+			}
 		}
+
 		if (currentList != null) {
 			final option = currentList[curSelected];
 			final acceptJustPressed = Controls.justPressed("accept");
@@ -468,10 +472,21 @@ class OptionsState extends FunkinState {
 				// I couldn't find a better way :(
 				if (option.hasMovement) { // most options change like this
 					final leftJustPressed:Bool = Controls.justPressed('ui_left');
+					final leftPressed:Bool = Controls.pressed('ui_left');
+
 					if (leftJustPressed || Controls.justPressed('ui_right')) {
 						option.change(leftJustPressed ? -1 : 1);
 						FlxG.sound.play(Paths.sound("scroll"), 0.6);
 					}
+
+					if (leftPressed || Controls.pressed('ui_right')) {
+						var checkLastHold:Int = Math.floor((holdTime - 0.05) * 10);
+						holdTime += elapsed;
+						var checkNewHold:Int = Math.floor((holdTime - 0.05) * 10);
+
+						if (holdTime > 0.25 && checkNewHold - checkLastHold > 0)
+							option.change((checkNewHold - checkLastHold) * (leftPressed ? -1 : 1));
+					} else holdTime = 0;
 				}
 				if (option.hasEnter && acceptJustPressed) {
 					if (!Std.isOfType(option, ButtonOption)) FlxG.sound.play(Paths.sound("confirmhalf"));
