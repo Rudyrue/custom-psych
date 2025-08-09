@@ -133,6 +133,7 @@ class PlayState extends FunkinState {
 
 	public var paused:Bool = false;
 	var updateTime:Bool = false;
+	var camZooming:Bool = true;
 
 	// objects
 	var stage:Stage;
@@ -397,7 +398,7 @@ class PlayState extends FunkinState {
 		ScriptHandler.call('measureHit', [measure]);
 		stage.measureHit(measure);
 
-		if (Settings.data.cameraZooms) {
+		if (Settings.data.cameraZooms && camZooming) {
 			camGame.zoom += 0.03;
 			camHUD.zoom += 0.015;
 		}
@@ -677,8 +678,8 @@ class PlayState extends FunkinState {
 				FlxG.sound.play(Paths.sound(event.args[0]), Std.parseFloat(event.args[1]));
 
 			case 'Add Camera Zoom':
-				if (Settings.data.cameraZooms && camGame.zoom < 1.35) {
-					camGame.zoom += Std.parseFloat(event.args[0]);
+				if (Settings.data.cameraZooms && camZooming) {
+					if (camGame.zoom < 1.35) camGame.zoom += Std.parseFloat(event.args[0]);
 					camHUD.zoom += Std.parseFloat(event.args[1]);
 				}
 
@@ -728,6 +729,8 @@ class PlayState extends FunkinState {
 	// regarding objects
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	dynamic function updateCameraScale(delta:Float):Void {
+		if (!camZooming) return;
+
 		final scalingMult:Float = Math.exp(-delta * 6 * playfield.rate);
 		camGame.zoom = FlxMath.lerp(defaultCamZoom, camGame.zoom, scalingMult);
 		camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, scalingMult);

@@ -2,12 +2,10 @@ package funkin.objects;
 
 import flixel.addons.display.FlxPieDial;
 
-#if hxvlc
+#if VIDEOS_ALLOWED
 import hxvlc.flixel.FlxVideoSprite;
-#end
 
 class FunkinVideo extends FlxSpriteGroup {
-	#if VIDEOS_ALLOWED
 	public dynamic function onFinish():Void {}
 	public dynamic function onSkip():Void {}
 
@@ -137,5 +135,32 @@ class FunkinVideo extends FlxSpriteGroup {
 	public function play() video?.play();
 	public function resume() video?.resume();
 	public function pause() video?.pause();
-	#end
 }
+#else 
+class FunkinVideo extends FlxSpriteGroup {
+	public dynamic function onFinish():Void {}
+	public dynamic function onSkip():Void {}
+
+	final _timeToSkip:Float = 1;
+	public var holdingTime:Float = 0;
+	public var video:Dynamic;
+	public var skipSprite:FlxPieDial;
+	public var cover:FlxSprite;
+	public var canSkip:Bool = false;
+
+	private var name:String;
+
+	public var waiting:Bool = false;
+
+	public function new(name:String, isWaiting:Bool, canSkip:Bool = false, shouldLoop:Bool = false) {
+		super();
+
+		this.name = name;
+		scrollFactor.set();
+	}
+	
+	public function play() {}
+	public function resume() {}
+	public function pause() {}
+}
+#end

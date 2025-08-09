@@ -44,6 +44,7 @@ class Mods {
 	}
 
 	public static function add(modID:String):ModData {
+		#if MODS_ALLOWED
 		var file:PackFile = getFile('mods/$modID/pack.json');
 		var mod:ModData = {
 			name: file.name,
@@ -55,9 +56,13 @@ class Mods {
 
 		list.push(mod);
 		return mod;
+		#else
+		return {};
+		#end
 	}
 
 	public static function reload():Void {
+		#if MODS_ALLOWED
 		list.resize(0);
 
 		if (!FileSystem.exists('modsList.txt')) {
@@ -76,6 +81,7 @@ class Mods {
 		}
 
 		loadTop();
+		#end
 	}
 
 	public static function createDummyFile():PackFile {

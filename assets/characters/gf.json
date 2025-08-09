@@ -6,10 +6,10 @@
 				0,
 			],
 			framerate: 24,
+			name: 'cheer',
+			looped: false,
 			id: 'GF Cheer',
 			indices: [],
-			looped: false,
-			name: 'cheer',
 		},
 		{
 			offsets: [
@@ -17,10 +17,10 @@
 				-19,
 			],
 			framerate: 24,
+			name: 'singLEFT',
+			looped: false,
 			id: 'GF left note',
 			indices: [],
-			looped: false,
-			name: 'singLEFT',
 		},
 		{
 			offsets: [
@@ -28,10 +28,10 @@
 				-20,
 			],
 			framerate: 24,
+			name: 'singDOWN',
+			looped: false,
 			id: 'GF Down Note',
 			indices: [],
-			looped: false,
-			name: 'singDOWN',
 		},
 		{
 			offsets: [
@@ -39,10 +39,10 @@
 				4,
 			],
 			framerate: 24,
+			name: 'singUP',
+			looped: false,
 			id: 'GF Up Note',
 			indices: [],
-			looped: false,
-			name: 'singUP',
 		},
 		{
 			offsets: [
@@ -50,10 +50,10 @@
 				-20,
 			],
 			framerate: 24,
+			name: 'singRIGHT',
+			looped: false,
 			id: 'GF Right Note',
 			indices: [],
-			looped: false,
-			name: 'singRIGHT',
 		},
 		{
 			offsets: [
@@ -61,6 +61,8 @@
 				-21,
 			],
 			framerate: 24,
+			name: 'sad',
+			looped: false,
 			id: 'gf sad',
 			indices: [
 				0,
@@ -77,8 +79,6 @@
 				11,
 				12,
 			],
-			looped: false,
-			name: 'sad',
 		},
 		{
 			offsets: [
@@ -86,6 +86,8 @@
 				-9,
 			],
 			framerate: 24,
+			name: 'danceLeft',
+			looped: false,
 			id: 'GF Dancing Beat',
 			indices: [
 				30,
@@ -105,8 +107,6 @@
 				13,
 				14,
 			],
-			looped: false,
-			name: 'danceLeft',
 		},
 		{
 			offsets: [
@@ -114,6 +114,8 @@
 				-9,
 			],
 			framerate: 24,
+			name: 'danceRight',
+			looped: false,
 			id: 'GF Dancing Beat',
 			indices: [
 				15,
@@ -132,8 +134,6 @@
 				28,
 				29,
 			],
-			looped: false,
-			name: 'danceRight',
 		},
 		{
 			offsets: [
@@ -141,6 +141,8 @@
 				-8,
 			],
 			framerate: 24,
+			name: 'hairBlow',
+			looped: true,
 			id: 'GF Dancing Beat Hair blowing',
 			indices: [
 				0,
@@ -148,8 +150,6 @@
 				2,
 				3,
 			],
-			looped: true,
-			name: 'hairBlow',
 		},
 		{
 			offsets: [
@@ -157,6 +157,8 @@
 				-9,
 			],
 			framerate: 24,
+			name: 'hairFall',
+			looped: false,
 			id: 'GF Dancing Beat Hair Landing',
 			indices: [
 				0,
@@ -172,8 +174,6 @@
 				10,
 				11,
 			],
-			looped: false,
-			name: 'hairFall',
 		},
 		{
 			offsets: [
@@ -181,10 +181,10 @@
 				-17,
 			],
 			framerate: 24,
+			name: 'scared',
+			looped: true,
 			id: 'GF FEAR',
 			indices: [],
-			looped: true,
-			name: 'scared',
 		},
 	],
 	healthColor: -5963699,
@@ -193,8 +193,8 @@
 	sheets: 'characters/gf',
 	danceInterval: 1,
 	cameraOffset: [
-		0,
-		0,
+		-205,
+		-65,
 	],
 	icon: 'gf',
 	antialiasing: true,
