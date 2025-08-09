@@ -10,14 +10,13 @@
 	<define name="TRANSLATIONS_ALLOWED" />
 	<define name="PSYCH_WATERMARKS"/> 
 	<define name="HSCRIPT_ALLOWED" />
-	<define name="LUA_ALLOWED" />
 	<define name="MODS_ALLOWED" />
 
 	<!-- DISABLE THIS IF ISSUES ARE FOUND -->
 	<!--<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/>-->
 
 	<!--<define name="BASE_GAME_ASSETS" /> -->
-	<define name="VIDEOS_ALLOWED" if="desktop cpp" unless="32bits"/>-
+	<define name="VIDEOS_ALLOWED" if="desktop cpp" unless="32bits"/>
 	<define name="CRASH_HANDLER" />
 	<define name="CHECK_FOR_UPDATES" />
 
