@@ -54,10 +54,13 @@ class MainMenuState extends FunkinState {
 
 		changeSelection();
 
-		final versions:FlxText = new FlxText(4, 683, 0, 'Psych Engine v${Main.psychEngineVersion}\nFriday Night Funkin\' v${Main.baseGameVersion}', 16);
+		final versions:FlxText = new FlxText(4, 0, 0, '', 16);
+		#if PSYCH_WATERMARKS versions.text = 'Psych Engine v${Main.psychEngineVersion}\n'; #end
+		versions.text += 'Friday Night Funkin\' v${Main.baseGameVersion}';
 		versions.font = Paths.font('vcr.ttf');
 		versions.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versions.scrollFactor.set();
+		versions.y = FlxG.height - versions.height;
 		add(versions);
 
 		FlxG.camera.follow(camFollow, null, 0.15);
@@ -108,11 +111,6 @@ class MainMenuState extends FunkinState {
 					case 'mods':
 						FunkinState.switchState(new ModsMenuState());
 					#end*/
-
-					#if AWARDS_ALLOWED
-					case 'awards':
-						FunkinState.switchState(new AchievementsMenuState());
-					#end
 
 					case 'credits':
 						FunkinState.switchState(new CreditsState());

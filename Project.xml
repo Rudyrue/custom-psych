@@ -5,10 +5,10 @@
 	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" orientation="landscape" fullscreen="false" resizable="true" allow-high-dpi="true"/>
 
 	<!-- Project Defines -->
-	<define name="ACHIEVEMENTS_ALLOWED" />
+	<define name="AWARDS_ALLOWED" />
 	<define name="DISCORD_ALLOWED" if="desktop cpp" />
 	<define name="TRANSLATIONS_ALLOWED" />
-	<define name="PSYCH_WATERMARKS"/> 
+	<define name="PSYCH_WATERMARKS"/>
 	<define name="HSCRIPT_ALLOWED" />
 	<define name="MODS_ALLOWED" />
 

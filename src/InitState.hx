@@ -1,15 +1,16 @@
 class InitState extends flixel.FlxState {
 	override function create() {
-		#if AWARDS_ALLOWED 
-		Awards.load();
-		#end
 		Controls.load();
 		Scores.load();
 		
+		#if MODS_ALLOWED
 		Mods.reload();
+		#end
 		Meta.cacheFiles();
 
+		#if TRANSLATIONS_ALLOWED
 		Language.reloadPhrases();
+		#end
 
 		#if DISCORD_ALLOWED
 		DiscordClient.prepare();
