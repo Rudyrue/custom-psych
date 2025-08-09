@@ -10,8 +10,8 @@ class MetaFile {
 	public var hasVocals:Bool = true;
 
 	public var player:String = 'bf';
-	public var spectator:String = 'bf';
-	public var enemy:String = 'bf';
+	public var spectator:String = 'gf';
+	public var enemy:String = 'bf-opponent';
 	public var stage:String = 'stage';
 }
 

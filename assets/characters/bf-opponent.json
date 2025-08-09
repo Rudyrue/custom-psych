@@ -1,0 +1,141 @@
+{
+	animations: [
+		{
+			offsets: [
+				0,
+				0,
+			],
+			framerate: 24,
+			id: 'idle',
+			indices: [],
+			name: 'idle',
+			looped: false,
+		},
+		{
+			offsets: [
+				-13,
+				-52,
+			],
+			framerate: 24,
+			id: 'sing down',
+			indices: [],
+			name: 'singDOWN',
+			looped: false,
+		},
+		{
+			offsets: [
+				9,
+				28,
+			],
+			framerate: 24,
+			id: 'sing up',
+			indices: [],
+			name: 'singUP',
+			looped: false,
+		},
+		{
+			offsets: [
+				-13,
+				-22,
+			],
+			framerate: 24,
+			id: 'miss down',
+			indices: [],
+			name: 'missDOWN',
+			looped: false,
+		},
+		{
+			offsets: [
+				4,
+				24,
+			],
+			framerate: 24,
+			id: 'miss up',
+			indices: [],
+			name: 'missUP',
+			looped: false,
+		},
+		{
+			offsets: [
+				3,
+				5,
+			],
+			framerate: 24,
+			id: 'hey',
+			indices: [],
+			name: 'cheer',
+			looped: false,
+		},
+		{
+			offsets: [
+				0,
+				0,
+			],
+			framerate: 24,
+			id: 'shaking',
+			indices: [],
+			name: 'scared',
+			looped: true,
+		},
+		{
+			offsets: [
+				43,
+				-7,
+			],
+			framerate: 24,
+			looped: false,
+			indices: [],
+			id: 'sing right',
+			name: 'singLEFT',
+		},
+		{
+			offsets: [
+				-35,
+				18,
+			],
+			framerate: 24,
+			looped: false,
+			indices: [],
+			id: 'miss left',
+			name: 'missRIGHT',
+		},
+		{
+			offsets: [
+				-35,
+				-7,
+			],
+			framerate: 24,
+			looped: false,
+			indices: [],
+			id: 'sing left',
+			name: 'singRIGHT',
+		},
+		{
+			offsets: [
+				40,
+				18,
+			],
+			framerate: 24,
+			looped: false,
+			indices: [],
+			id: 'miss right',
+			name: 'missLEFT',
+		},
+	],
+	healthColor: -13520687,
+	singDuration: 4,
+	flipX: true,
+	sheets: 'characters/bf',
+	danceInterval: 2,
+	cameraOffset: [
+		160,
+		210,
+	],
+	icon: 'bf',
+	antialiasing: true,
+	offset: [
+		40,
+		-350,
+	],
+	scale: 1,
+}
