@@ -14,14 +14,12 @@ class StageWeek1 extends Stage {
 		bg.frames = assets;
 		bg.animation.addByPrefix('FUCK', 'stageback', 0, false);
 		bg.animation.play('FUCK');
-		bg.scrollFactor.set(0.9, 0.9);
 		addBehindObject(bg, PlayState.self.gf);
 
 		var front:FlxSprite = new FlxSprite(-650, 600);
 		front.frames = assets;
 		front.animation.addByPrefix('FUCK', 'stagefront', 0, false);
 		front.animation.play('FUCK');
-		front.scrollFactor.set(0.9, 0.9);
 		addBehindObject(front, PlayState.self.gf);
 
 		if (Settings.data.reducedQuality) return;
