@@ -11,7 +11,6 @@ class FunkinSprite extends animate.FlxAnimate {
 		super(x, y, graphic);
 		moves = false;
 		active = false;
-		antialiasing = Settings.data.antialiasing;
 	}
 
 	// knew this was gonna get to me eventually lol
@@ -23,6 +22,11 @@ class FunkinSprite extends animate.FlxAnimate {
 	override public function makeGraphic(width:Int, height:Int, color:FlxColor = FlxColor.WHITE, unique:Bool = false, ?key:String):FunkinSprite	{
 		super.makeGraphic(width, height, color, unique, key);
 		return this;
+	}
+
+	override function set_antialiasing(v:Bool):Bool {
+		if (!Settings.data.antialiasing) return antialiasing = false;
+		return antialiasing = v;
 	}
 
 	public function setOffset(name:String, offsets:Array<Float>) offsetMap.set(name, offsets);

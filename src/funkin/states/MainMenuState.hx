@@ -112,6 +112,9 @@ class MainMenuState extends FunkinState {
 						FunkinState.switchState(new ModsMenuState());
 					#end*/
 
+					case 'awards':
+						FunkinState.switchState(new AwardsState());
+
 					case 'credits':
 						FunkinState.switchState(new CreditsState());
 
