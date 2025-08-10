@@ -1,11 +1,14 @@
 package funkin.states;
 
 import flixel.graphics.FlxGraphic;
+import funkin.objects.Bar;
 
 class AwardsState extends FunkinState {
 	var grpAwards:FlxTypedSpriteGroup<FunkinSprite>;
 	var nameTxt:FlxText;
 	var descText:FlxText;
+	var progressTxt:FlxText;
+	var progressBar:Bar;
 	var list:Array<String> = [];
 
 	var camFollow:FlxObject;
@@ -73,6 +76,16 @@ class AwardsState extends FunkinState {
 		descText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER);
 		descText.scrollFactor.set();
 
+		add(progressBar = new Bar(0, descText.y + 52));
+		progressBar.screenCenter(X);
+		progressBar.scrollFactor.set();
+		progressBar.active = false;
+		
+		add(progressTxt = new FlxText(50, progressBar.y - 6, FlxG.width - 100, '0 / 0'));
+		progressTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		progressTxt.scrollFactor.set();
+		progressTxt.borderSize = 2;
+
 		changeSelection();
 		FlxG.camera.follow(camFollow, null, 0.15);
 		FlxG.camera.scroll.y = -FlxG.height;
@@ -82,6 +95,10 @@ class AwardsState extends FunkinState {
 		var award = Awards.get(list[curSelected]);
 		nameTxt.text = Awards.isUnlocked(award.id) ? award.name : '???';
 		descText.text = award.description;
+		progressBar.visible = award.maxScore > 0;
+		progressTxt.visible = award.maxScore > 0;
+
+		progressTxt.text = '0 / ${Util.truncateFloat(award.maxScore, award.decimals)}';
 
 		var maxRows = Math.floor(grpAwards.members.length / MAX_PER_ROW);
 		if (maxRows > 0) {

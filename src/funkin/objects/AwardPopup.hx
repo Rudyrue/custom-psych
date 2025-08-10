@@ -13,7 +13,7 @@ class AwardPopup extends openfl.display.Sprite {
 	var lastScale:Float = 1;
 	var nameTxt:TextField;
 	var descTxt:TextField;
-	public function new(id:String, ?onFinish:Void -> Void) {
+	public function new(id:String) {
 		super();
 
 		graphics.beginFill(FlxColor.BLACK);
@@ -75,7 +75,6 @@ class AwardPopup extends openfl.display.Sprite {
 
 	public function destroy() {
 		Awards._popups.remove(this);
-		//trace('destroyed achievement, new count: ' + Achievements._popups.length);
 
 		if (FlxG.game.contains(this)) {
 			FlxG.game.removeChild(this);

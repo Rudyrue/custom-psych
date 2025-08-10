@@ -51,7 +51,8 @@ class Awards {
 		},
 		{
 			name: 'Roadkill Enthusiast', id: 'roadkill_enthusiast',
-			description: 'Watch the Henchmen die 50 times.'
+			description: 'Watch the Henchmen die 50 times.',
+			maxScore: 50
 		},
 		{
 			name: 'Oversinging Much...?', id: 'oversinging',
@@ -152,4 +153,7 @@ class Award {
 	public var id:String = '';
 	public var icon:String = 'default';
 	public var hidden:Bool = false;
+
+	public var maxScore:Float = 0;
+	public var decimals:Int = 0;
 }
