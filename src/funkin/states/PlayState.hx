@@ -556,42 +556,7 @@ class PlayState extends FunkinState {
 		// load inst
 		try {
 			Conductor.inst = FlxG.sound.load(Paths.audio('songs/$songID/Inst'));
-			Conductor.inst.onComplete = function() {
-				if (!disqualified) {
-					Scores.setPlay({
-						songID: songID,
-						difficulty: Difficulty.current,
-
-						score: score,
-						accuracy: accuracy,
-
-						modifiers: Settings.data.gameplayModifiers.copy()
-					});
-
-					if (storyMode) {
-						storyScore += score;
-						storyComboBreaks += comboBreaks;
-						if (currentLevel == songList.length - 1) {
-							#if AWARDS_ALLOWED
-							if (storyComboBreaks == 0) Awards.unlock('${weekData.fileName}_fc');
-							#end
-
-							Scores.setWeekPlay({
-								weekID: weekData.fileName,
-								difficulty: Difficulty.current,
-								score: score,
-								modifiers: Settings.data.gameplayModifiers.copy()
-							});
-							weekData = null;
-							storyScore = 0;
-							storyComboBreaks = 0;
-						}
-					}
-				}
-
-				endSong();
-				Scores.save();
-			}
+			Conductor.inst.onComplete = function() songCompleted(); // ???????????????????????
 		} catch (e:Dynamic) {
 			error('Instrumental failed to load: $e');
 		}
@@ -610,6 +575,49 @@ class PlayState extends FunkinState {
 		}
 
 		playfield.loadNotes(song);
+	}
+
+	@:unreflective
+	function songCompleted() {
+		if (disqualified) endSong(); return;
+	
+		Scores.setPlay({
+			songID: songID,
+			difficulty: Difficulty.current,
+
+			score: score,
+			accuracy: accuracy,
+
+			modifiers: Settings.data.gameplayModifiers.copy()
+		});
+
+		#if AWARDS_ALLOWED 
+		if (accuracy >= 100) Awards.unlock('ur_good');
+		else if (accuracy < 20) Awards.unlock('ur_bad');
+		#end 
+
+		if (storyMode) {
+			storyScore += score;
+			storyComboBreaks += comboBreaks;
+			if (currentLevel == songList.length - 1) {
+				#if AWARDS_ALLOWED
+				if (storyComboBreaks == 0) Awards.unlock('${weekData.fileName}_fc');
+				#end
+
+				Scores.setWeekPlay({
+					weekID: weekData.fileName,
+					difficulty: Difficulty.current,
+					score: score,
+					modifiers: Settings.data.gameplayModifiers.copy()
+				});
+				weekData = null;
+				storyScore = 0;
+				storyComboBreaks = 0;
+			}
+		}
+
+		endSong();
+		Scores.save();
 	}
 
 	function noteSpawned(note:Note):Void {
