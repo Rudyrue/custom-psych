@@ -130,6 +130,7 @@ class PlayState extends FunkinState {
 	var skipCountdown:Bool = false;
 
 	static var storyScore:Int = 0;
+	static var storyComboBreaks:Int = 0; // only exists for awards
 
 	public var paused:Bool = false;
 	var updateTime:Bool = false;
@@ -219,7 +220,7 @@ class PlayState extends FunkinState {
 		var strumlineYPos:Float = downscroll ? FlxG.height - 150 : 50;
 		leftStrumline = new Strumline(320, strumlineYPos);
 		leftStrumline.healthMult = -1;
-		rightStrumline = new Strumline(950, strumlineYPos);
+		rightStrumline = new Strumline(960, strumlineYPos);
 
 		add(playfield = new PlayField([leftStrumline, rightStrumline], Settings.data.gameplayModifiers['opponentMode'] ? 0 : 1));
 		playfield.cameras = [camHUD];
@@ -569,7 +570,12 @@ class PlayState extends FunkinState {
 
 					if (storyMode) {
 						storyScore += score;
+						storyComboBreaks += comboBreaks;
 						if (currentLevel == songList.length - 1) {
+							#if AWARDS_ALLOWED
+							if (storyComboBreaks == 0) Awards.unlock('${weekData.fileName}_fc');
+							#end
+
 							Scores.setWeekPlay({
 								weekID: weekData.fileName,
 								difficulty: Difficulty.current,
@@ -578,6 +584,7 @@ class PlayState extends FunkinState {
 							});
 							weekData = null;
 							storyScore = 0;
+							storyComboBreaks = 0;
 						}
 					}
 				}
