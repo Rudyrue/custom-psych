@@ -579,7 +579,7 @@ class PlayState extends FunkinState {
 
 	@:unreflective
 	function songCompleted() {
-		if (disqualified) endSong(); return;
+		if (disqualified) {endSong(); return;}
 	
 		Scores.setPlay({
 			songID: songID,
