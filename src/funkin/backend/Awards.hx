@@ -78,27 +78,36 @@ class Awards {
 
 	@:unreflective
 	static var _unlocked:Array<String> = [];
+	static var _scores:Map<String, Float> = [];
 
 	static var _save:FlxSave;
 
 	public static function load() {
-		_save.bind('awards', Util.getSavePath());
+		if (_save == null) {
+			_save = new FlxSave();
+			_save.bind('awards', Util.getSavePath());
+		}
 
-		_unlocked.resize(0);
-		_unlocked = _save.data.list.copy();
+		if (_save.data.list != null) {
+			_unlocked.resize(0);
+			_unlocked = _save.data.list.copy();
+		}
+
+		if (_save.data.scores != null) {
+			_scores = _save.data.scores.copy();
+		}
 	}
 
 	public static function save() {
 		_save.data.list = _unlocked;
+		_save.data.scores = _scores;
 		_save.flush();
 	}
 
 	public static function reset(?saveToDisk:Bool = false) {
 		_unlocked.resize(0);
-		if (saveToDisk) {
-			_save.data.list = [];
-			save();
-		}
+		_scores = [];
+		if (saveToDisk) save();
 	}
 
 	public static function isUnlocked(id:String):Bool {
@@ -112,6 +121,28 @@ class Awards {
 		_unlocked.push(id);
 		FlxG.sound.play(Paths.sound('confirm'), 0.5);
 		if (autoPopup) startPopup(id);
+
+		save();
+	}
+
+	public static function getScore(id:String):Float {
+		if (!_scores.exists(id)) return 0;
+		return _scores[id];
+	}
+
+	public static function addScore(id:String, value:Float) {
+		var award:Award = get(id);
+		if (award == null || award.maxScore <= 0) return;
+
+		setScore(id, _scores[id] + value);
+	}
+
+	public static function setScore(id:String, value:Float) {
+		var award:Award = get(id);
+		if (award == null || award.maxScore <= 0 || value > award.maxScore) return;
+
+		_scores.set(id, value);
+		if (value >= award.maxScore) unlock(id);
 	}
 
 	@:allow(funkin.objects.AwardPopup)

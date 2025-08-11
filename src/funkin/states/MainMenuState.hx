@@ -65,6 +65,15 @@ class MainMenuState extends FunkinState {
 
 		FlxG.camera.follow(camFollow, null, 0.15);
 		FlxG.mouse.visible = true;
+
+		#if AWARDS_ALLOWED
+		var date:Date = Date.now();
+		var isFriday:Bool = date.getDay() == 5; // if the current day is a friday
+		var inTimeFrame:Bool = date.getHours() >= 18; // if the time is between 6:00 PM and 11:59 PM
+		if (isFriday && inTimeFrame) {
+			Awards.unlock('friday_play');
+		}
+		#end
 	}
 
 	var actionPressed:Bool = false;

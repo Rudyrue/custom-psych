@@ -2,6 +2,10 @@ class InitState extends flixel.FlxState {
 	override function create() {
 		Controls.load();
 		Scores.load();
+
+		#if AWARDS_ALLOWED
+		Awards.load();
+		#end
 		
 		#if MODS_ALLOWED
 		Mods.reload();

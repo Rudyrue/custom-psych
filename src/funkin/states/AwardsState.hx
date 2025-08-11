@@ -98,7 +98,11 @@ class AwardsState extends FunkinState {
 		progressBar.visible = award.maxScore > 0;
 		progressTxt.visible = award.maxScore > 0;
 
-		progressTxt.text = '0 / ${Util.truncateFloat(award.maxScore, award.decimals)}';
+		if (progressTxt.visible) {
+			var currentProgress:Float = Util.truncateFloat(Awards.getScore(list[curSelected]), award.decimals);
+			var maxProgress:Float = Util.truncateFloat(award.maxScore, award.decimals);
+			progressTxt.text = '$currentProgress / $maxProgress';
+		}
 
 		var maxRows = Math.floor(grpAwards.members.length / MAX_PER_ROW);
 		if (maxRows > 0) {
