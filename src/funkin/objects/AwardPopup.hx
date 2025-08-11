@@ -123,7 +123,9 @@ class AwardPopup extends openfl.display.Sprite {
 #else
 class AwardPopup extends openfl.display.Sprite {
 	public var intendedY:Float = 0;
-	public function new(_) {}
+	public function new(_) {
+		super();
+	}
 	public function destroy() {}
 }
 #end
