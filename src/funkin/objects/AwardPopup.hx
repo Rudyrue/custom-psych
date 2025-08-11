@@ -8,6 +8,7 @@ import openfl.text.TextFormat;
 import flixel.graphics.FlxGraphic;
 import openfl.Lib;
 
+#if AWARDS_ALLOWED
 class AwardPopup extends openfl.display.Sprite {
 	public var intendedY:Float = 0;
 	var lastScale:Float = 1;
@@ -109,7 +110,7 @@ class AwardPopup extends openfl.display.Sprite {
 		}
 	}
 
-	private function onResize(e:Event) {
+	function onResize(e:Event) {
 		var mult = (FlxG.stage.stageHeight / FlxG.height);
 		scaleX = mult;
 		scaleY = mult;
@@ -119,3 +120,10 @@ class AwardPopup extends openfl.display.Sprite {
 		lastScale = mult;
 	}
 }
+#else
+class AwardPopup extends openfl.display.Sprite {
+	public var intendedY:Float = 0;
+	public function new(_) {}
+	public function destroy() {}
+}
+#end

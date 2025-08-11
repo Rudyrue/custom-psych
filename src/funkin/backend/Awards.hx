@@ -3,6 +3,7 @@ package funkin.backend;
 import flixel.util.FlxSave;
 import funkin.objects.AwardPopup;
 
+#if AWARDS_ALLOWED
 class Awards {
 	public static var list:Array<Award> = [
 		{
@@ -78,6 +79,7 @@ class Awards {
 
 	@:unreflective
 	static var _unlocked:Array<String> = [];
+	@:unreflective
 	static var _scores:Map<String, Float> = [];
 
 	static var _save:FlxSave;
@@ -176,6 +178,30 @@ class Awards {
 		return null;
 	}
 }
+#else
+class Awards {
+	public static var list:Array<Award> = [];
+
+	public static function load() {}
+	public static function save() {}
+	public static function reset(?_) {}
+	public static function isUnlocked(_):Bool return false;
+	public static function unlock(_, ?_) {}
+	public static function getScore(_):Float return 0;
+	public static function addScore(_, _) {}
+	public static function setScore(_, _) {}
+
+	static var _popups:Array<AwardPopup> = [];
+
+	public static var showingPopups(get, never):Bool;
+	public static function get_showingPopups():Bool return _popups.length > 0;
+
+	public static function startPopup(_) {}
+	public static function exists(_):Bool return false;
+	public static function get(_):Award return {};
+
+}
+#end
 
 @:structInit
 class Award {
