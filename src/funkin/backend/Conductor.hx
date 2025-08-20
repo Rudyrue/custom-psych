@@ -182,11 +182,11 @@ class Conductor extends flixel.FlxBasic {
 		// we seperate time into 2 values because of modcharting capabilities
 		// makes it easier to fuck with scroll velocities and such
 
+		// USE THIS FOR VISUAL POSITION, **NOT FOR JUDGEMENT MATH (ie note.rawHitTime)**
+		visualTime = FlxMath.lerp(inst.time + offset, rawTime, Math.exp(-deltaTime * 5));
+
 		// USE THIS FOR JUDGEMENT MATH, **NOT FOR VISUAL POSITION**
 		rawTime = inst.time + offset;
-
-		// USE THIS FOR VISUAL POSITION, **NOT FOR JUDGEMENT MATH (ie note.rawHitTime)**
-		visualTime = rawTime + _resyncTimer;
     }
 
     public static dynamic function syncVocals() {
