@@ -796,7 +796,7 @@ class PlayState extends FunkinState {
 		menu.camera = camOther;
 	}
 
-	function cacheCharacter(type:Int, name:String):Character {
+	function cacheCharacter(name:String):Character {
 		var character:Character = new Character(0, 0, name);
 		character.alpha = 0.0001;
 		characterCache.set(name, character);

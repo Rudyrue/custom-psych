@@ -69,12 +69,12 @@ class Receptor extends FunkinSprite {
 
 		this.parent = parent;
 
-		animation.finishCallback = _ -> {
+		animation.finishCallback = anim -> {
 			if (holdTime > 0) return;
 			
 			active = false;
 
-			if (!(parent.ai || queueStatic) || animation.curAnim.name != 'notePressed') return;
+			if (!(parent.ai || queueStatic) || anim != 'notePressed') return;
 			playAnim('default');
 		}
 
