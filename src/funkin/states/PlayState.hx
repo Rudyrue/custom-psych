@@ -736,7 +736,7 @@ class PlayState extends FunkinState {
 
 		switch event.name {
 			case 'Change Character':
-				cacheCharacter(Std.parseInt(event.args[0]), event.args[1]);
+				cacheCharacter(Std.parseInt(event.args[1]);
 		}
 	}
 
